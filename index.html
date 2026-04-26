@@ -1,1875 +1,883 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Authority Flywheel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authority Flywheel Playbook — Early Access Waitlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --bg:        #0d0e0b;
+  --bg2:       #131410;
+  --bg3:       #191b14;
+  --lime:      #c8f135;
+  --lime-dim:  rgba(200,241,53,.12);
+  --lime-glow: rgba(200,241,53,.28);
+  --white:     #f2f2ee;
+  --grey:      #9a9d90;
+  --grey2:     #5c5f54;
+  --border:    rgba(255,255,255,.07);
+  --border-l:  rgba(200,241,53,.22);
+  --radius:    14px;
+  --ff:        'Poppins', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--ff);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
+/* ═══════════════════════════════════════════
+   BG EFFECTS
+═══════════════════════════════════════════ */
+.glow-hero {
+  position: absolute; top: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse at 50% 60%, rgba(200,241,53,.13) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.grid-lines {
+  position: absolute; inset: 0;
+  pointer-events: none; overflow: hidden; z-index: 0;
+}
+.grid-lines svg { width: 100%; height: 100%; opacity: .03; }
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+}
 
-        .book-container {
-            max-width: 210mm; /* A4 width */
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
+/* ═══════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════ */
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.container--wide { max-width: 1020px; margin: 0 auto; padding: 0 24px; }
+.tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.05); border: 1px solid var(--border);
+  border-radius: 100px; padding: 5px 14px;
+  font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--grey);
+}
+.tag .dot {
+  width: 7px; height: 7px; background: var(--lime); border-radius: 50%;
+  box-shadow: 0 0 8px var(--lime); animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.5} }
 
-        .page {
-            width: 210mm; /* A4 width */
-            min-height: 297mm; /* A4 height */
-            padding: 25mm 20mm; /* Standard book margins */
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            position: relative;
-            page-break-after: always;
-            display: flex;
-            flex-direction: column;
-        }
+.section-label {
+  font-size: 10.5px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 14px; display: block;
+}
+.divider {
+  border: none; border-top: 1px solid var(--border); margin: 0;
+}
 
-        /* Cover Page */
-        .cover {
-            background: linear-gradient(135deg, #1a3a3a 0%, #4db6ac 50%, #26a69a 100%);
-            color: white;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-        }
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.au  { animation: fadeUp .65s ease both; }
+.d1  { animation-delay: .1s; }
+.d2  { animation-delay: .22s; }
+.d3  { animation-delay: .34s; }
+.d4  { animation-delay: .46s; }
+.d5  { animation-delay: .58s; }
+.d6  { animation-delay: .7s; }
 
-        .cover h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            line-height: 1.2;
-        }
+/* ═══════════════════════════════════════════
+   ① HEADER / HERO
+═══════════════════════════════════════════ */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 72px 0 80px; text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.hero-logo {
+  width: 56px; height: 56px; background: var(--lime);
+  border-radius: 13px; margin: 0 auto 28px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 32px var(--lime-glow);
+}
+.hero-logo svg { width: 26px; height: 26px; }
 
-        .cover .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 50px;
-            font-weight: 400;
-            opacity: 0.95;
-        }
+/* ① Headline */
+.hero h1 {
+  font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+  font-weight: 800; line-height: 1.06;
+  letter-spacing: -.025em; margin-bottom: 20px;
+}
+.hero h1 .lime { color: var(--lime); }
 
-        .flywheel-icon {
-            width: 120px;
-            height: 120px;
-            margin: 30px auto;
-            border: 4px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            animation: spin 20s linear infinite;
-        }
+/* ② Supporting headline */
+.hero-sub {
+  font-size: clamp(1rem, 2.2vw, 1.18rem);
+  font-weight: 400; color: var(--grey);
+  max-width: 540px; margin: 0 auto 40px;
+  line-height: 1.7;
+}
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+/* ③ Offer copy */
+.hero-offer {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  margin-bottom: 36px;
+}
+.hero-offer .pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--lime-dim); border: 1px solid var(--border-l);
+  border-radius: 8px; padding: 9px 18px;
+  font-size: .88rem; font-weight: 500; color: var(--lime);
+}
+.hero-offer .pill svg { width: 16px; height: 16px; flex-shrink: 0; }
+.hero-scarcity {
+  font-size: .78rem; font-weight: 500; color: var(--grey2);
+  letter-spacing: .04em;
+}
 
-        .flywheel-icon::before {
-            content: '⚙';
-            font-size: 3rem;
-            color: white;
-        }
+/* ④ Primary form */
+.hero-form-wrap {
+  max-width: 500px; margin: 0 auto 18px;
+}
+.form-row {
+  display: flex; gap: 0;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 11px; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-row:focus-within {
+  border-color: var(--border-l);
+  box-shadow: 0 0 0 3px rgba(200,241,53,.08);
+}
+.form-row.shake { animation: shake .4s ease; border-color: rgba(255,80,60,.45); }
+@keyframes shake {
+  0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)}
+}
+.form-row input {
+  flex: 1; background: transparent; border: none; outline: none;
+  padding: 15px 18px; font-family: var(--ff); font-size: .92rem; color: var(--white);
+}
+.form-row input::placeholder { color: var(--grey2); }
 
-        /* Page Numbers */
-        .page-number {
-            position: absolute;
-            bottom: 15mm;
-            right: 20mm;
-            font-size: 12px;
-            color: #666;
-            font-weight: 400;
-        }
+/* ⑤ Primary CTA */
+.btn-cta {
+  background: var(--lime); color: #0d0e0b; border: none;
+  padding: 14px 24px; margin: 5px; border-radius: 8px;
+  font-family: var(--ff); font-weight: 700; font-size: .9rem;
+  cursor: pointer; white-space: nowrap;
+  transition: background .15s, transform .12s, box-shadow .2s;
+  display: flex; align-items: center; gap: 7px;
+}
+.btn-cta:hover {
+  background: #d9ff52; box-shadow: 0 0 24px rgba(200,241,53,.35);
+  transform: translateY(-1px);
+}
+.btn-cta:active { transform: translateY(0); }
+.btn-cta svg { width: 15px; height: 15px; }
 
-        /* Headers */
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #1a3a3a;
-            margin-bottom: 30px;
-            line-height: 1.3;
-        }
+.form-note {
+  font-size: .75rem; color: var(--grey2); text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.form-note svg { width: 12px; height: 12px; opacity: .6; }
 
-        h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #26a69a;
-            margin-bottom: 25px;
-            margin-top: 30px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #4db6ac;
-            line-height: 1.3;
-        }
+/* success */
+.success-box {
+  display: none; flex-direction: column; align-items: center; gap: 6px;
+  background: rgba(200,241,53,.07); border: 1px solid rgba(200,241,53,.2);
+  border-radius: 11px; padding: 18px 28px;
+  max-width: 500px; width: 100%; margin: 0 auto 18px; text-align: center;
+}
+.success-box.show { display: flex; animation: fadeUp .4s ease; }
+.success-box strong { font-size: .95rem; font-weight: 700; color: var(--lime); }
+.success-box span { font-size: .78rem; color: var(--grey); }
 
-        h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #1a3a3a;
-            margin: 25px 0 15px 0;
-            line-height: 1.4;
-        }
+/* avatar proof row */
+.proof-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 11px; margin-top: 24px;
+}
+.avatars { display: flex; }
+.av {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--bg); margin-left: -9px; overflow: hidden; flex-shrink: 0;
+}
+.av:first-child { margin-left: 0; }
+.av svg { width: 100%; height: 100%; }
+.proof-text { font-size: .83rem; color: var(--grey); font-weight: 500; }
+.proof-text b { color: var(--white); }
 
-        h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #26a69a;
-            margin: 20px 0 10px 0;
-        }
+/* countdown */
+.countdown-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; margin-top: 44px;
+}
+.countdown {
+  display: flex; align-items: center; gap: 4px;
+}
+.cb { display: flex; flex-direction: column; align-items: center; min-width: 64px; }
+.cn {
+  font-size: 2.4rem; font-weight: 800; letter-spacing: -.04em; line-height: 1;
+}
+.cl {
+  font-size: 8.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--grey2); margin-top: 5px;
+}
+.csep { font-size: 1.6rem; font-weight: 300; color: var(--grey2); margin-bottom: 14px; opacity: .3; }
+.cd-note {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 500; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--grey2);
+}
 
-        /* Paragraphs */
-        p {
-            margin-bottom: 15px;
-            font-size: 14px;
-            font-weight: 400;
-            text-align: justify;
-        }
+/* ═══════════════════════════════════════════
+   ⑥ FEATURES & BENEFITS
+═══════════════════════════════════════════ */
+.benefits {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--border);
+}
+.benefits-intro { text-align: center; margin-bottom: 52px; }
+.benefits-intro h2 {
+  font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 800;
+  letter-spacing: -.02em; margin-bottom: 14px;
+}
+.benefits-intro h2 .lime { color: var(--lime); }
+.benefits-intro p { font-size: .98rem; color: var(--grey); max-width: 480px; margin: 0 auto; }
 
-        /* Hook Boxes */
-        .hook {
-            background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(38, 166, 154, 0.3);
-        }
+.benefits-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+}
+@media(max-width:620px){ .benefits-grid { grid-template-columns: 1fr; } }
+.bcard {
+  background: var(--bg2); padding: 30px 28px;
+  position: relative; overflow: hidden;
+  transition: background .2s;
+}
+.bcard:hover { background: var(--bg3); }
+.bcard::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, transparent, var(--lime), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.bcard:hover::before { opacity: .5; }
+.bcard-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--lime-dim); border: 1px solid var(--border-l);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.bcard-icon svg { width: 18px; height: 18px; color: var(--lime); }
+.bcard h3 { font-size: .98rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
+.bcard p { font-size: .83rem; line-height: 1.65; color: var(--grey); }
 
-        /* Framework Boxes */
-        .framework-box {
-            background: #f8fdfc;
-            border-left: 5px solid #4db6ac;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+/* checklist */
+.checklist-wrap {
+  margin-top: 52px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 36px 40px;
+}
+@media(max-width:580px){ .checklist-wrap { padding: 28px 22px; } }
+.checklist-wrap h3 {
+  font-size: 1.15rem; font-weight: 700; margin-bottom: 24px;
+}
+.checklist {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; list-style: none;
+}
+@media(max-width:560px){ .checklist { grid-template-columns: 1fr; } }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .88rem; color: var(--grey); line-height: 1.5;
+}
+.check-icon {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--lime-dim); border: 1px solid var(--border-l);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px;
+}
+.check-icon svg { width: 10px; height: 10px; color: var(--lime); }
 
-        /* Exercise Boxes */
-        .exercise-box {
-            background: linear-gradient(135deg, rgba(38, 166, 154, 0.08) 0%, rgba(77, 182, 172, 0.05) 100%);
-            border: 2px solid #4db6ac;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
+/* ═══════════════════════════════════════════
+   ⑦ SOCIAL PROOF — TESTIMONIALS
+═══════════════════════════════════════════ */
+.testimonials {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--border);
+}
+.testimonials-intro { text-align: center; margin-bottom: 48px; }
+.testimonials-intro h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800;
+  letter-spacing: -.02em; margin-bottom: 12px;
+}
+.testimonials-intro p { font-size: .95rem; color: var(--grey); }
 
-        .exercise-box h4 {
-            color: #26a69a;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
+.tgrid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+}
+@media(max-width:700px){ .tgrid { grid-template-columns: 1fr; } }
+.tcard {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px 24px;
+  transition: border-color .2s;
+}
+.tcard:hover { border-color: var(--border-l); }
+.stars {
+  display: flex; gap: 3px; margin-bottom: 14px;
+}
+.stars svg { width: 14px; height: 14px; color: var(--lime); }
+.tcard blockquote {
+  font-size: .86rem; line-height: 1.65; color: var(--grey);
+  margin-bottom: 18px; font-style: normal;
+}
+.tcard blockquote strong { color: var(--white); font-weight: 600; }
+.tauthor {
+  display: flex; align-items: center; gap: 10px;
+}
+.tav {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg3); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--lime);
+  border: 1px solid var(--border-l);
+}
+.tname { font-size: .83rem; font-weight: 600; }
+.trole { font-size: .76rem; color: var(--grey2); }
 
-        /* Takeaways */
-        .takeaways {
-            background: #1a3a3a;
-            color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
-        }
+/* ═══════════════════════════════════════════
+   ⑧ REASSURANCES (FAQ + GUARANTEE)
+═══════════════════════════════════════════ */
+.reassure {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--border);
+}
+.reassure-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+}
+@media(max-width:660px){ .reassure-grid { grid-template-columns: 1fr; } }
 
-        .takeaways h4 {
-            color: #4db6ac;
-            margin-bottom: 15px;
-        }
+.guarantee-box {
+  background: var(--bg2); border: 1px solid var(--border-l);
+  border-radius: var(--radius); padding: 36px 32px; text-align: center;
+}
+.g-badge {
+  width: 72px; height: 72px; background: var(--lime-dim);
+  border: 2px solid var(--border-l); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 28px;
+}
+.guarantee-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+.guarantee-box p { font-size: .84rem; color: var(--grey); line-height: 1.65; }
 
-        /* Case Studies */
-        .case-study {
-            background: linear-gradient(135deg, rgba(26, 58, 58, 0.05) 0%, rgba(77, 182, 172, 0.03) 100%);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #26a69a;
-        }
+.faq-wrap h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 24px; letter-spacing: -.01em; }
+.faq-item {
+  border-top: 1px solid var(--border); padding: 18px 0; cursor: pointer;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  font-size: .9rem; font-weight: 600; color: var(--white);
+}
+.faq-q svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--lime); transition: transform .25s; }
+.faq-item.open .faq-q svg { transform: rotate(45deg); }
+.faq-a {
+  font-size: .84rem; color: var(--grey); line-height: 1.65;
+  max-height: 0; overflow: hidden; transition: max-height .3s ease, margin-top .2s;
+}
+.faq-item.open .faq-a { max-height: 200px; margin-top: 10px; }
 
-        .case-study h4 {
-            color: #1a3a3a;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
+/* ═══════════════════════════════════════════
+   ⑨ SECONDARY CTA
+═══════════════════════════════════════════ */
+.secondary-cta {
+  position: relative; overflow: hidden;
+  padding: 96px 0 100px; text-align: center;
+}
+.secondary-cta .glow2 {
+  position: absolute; bottom: -100px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 380px;
+  background: radial-gradient(ellipse, rgba(200,241,53,.25) 0%, transparent 65%);
+  pointer-events: none; filter: blur(3px);
+}
+.secondary-cta h2 {
+  font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 800;
+  letter-spacing: -.025em; margin-bottom: 16px; position: relative; z-index: 1;
+}
+.secondary-cta h2 .lime { color: var(--lime); }
+.secondary-cta p {
+  font-size: .98rem; color: var(--grey); max-width: 440px;
+  margin: 0 auto 40px; line-height: 1.7; position: relative; z-index: 1;
+}
+.btn-cta-lg {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--lime); color: #0d0e0b;
+  border: none; border-radius: 12px; padding: 17px 36px;
+  font-family: var(--ff); font-weight: 700; font-size: 1rem;
+  cursor: pointer; position: relative; z-index: 1;
+  transition: background .15s, transform .12s, box-shadow .2s;
+  text-decoration: none;
+}
+.btn-cta-lg:hover {
+  background: #d9ff52; box-shadow: 0 0 28px rgba(200,241,53,.4);
+  transform: translateY(-2px);
+}
+.btn-cta-lg svg { width: 18px; height: 18px; }
+.cta-trust {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  margin-top: 22px; flex-wrap: wrap; position: relative; z-index: 1;
+}
+.cta-trust-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .78rem; color: var(--grey2); font-weight: 500;
+}
+.cta-trust-item svg { width: 13px; height: 13px; color: var(--lime); }
 
-        /* Lists */
-        ul, ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        ul li::marker {
-            color: #4db6ac;
-        }
-
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 13px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        th {
-            background: #f8fdfc;
-            color: #26a69a;
-            font-weight: 600;
-            border-bottom: 2px solid #4db6ac;
-        }
-
-        /* Formula Steps */
-        .formula-steps {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 25px 0;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 100px;
-            background: #f8fdfc;
-            padding: 15px 10px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #4db6ac;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .step-number {
-            color: #26a69a;
-            font-size: 1.2rem;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .arrow {
-            color: #26a69a;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        /* Roadmap */
-        .roadmap {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .roadmap-step {
-            background: linear-gradient(135deg, rgba(77, 182, 172, 0.1) 0%, rgba(38, 166, 154, 0.05) 100%);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #4db6ac;
-        }
-
-        .roadmap-step h4 {
-            color: #26a69a;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .roadmap-step p {
-            font-size: 12px;
-            margin: 0;
-            color: #666;
-        }
-
-        /* Reflection Prompts */
-        .reflection-prompt {
-            background: rgba(77, 182, 172, 0.08);
-            border: 2px dashed #4db6ac;
-            padding: 18px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-style: italic;
-            position: relative;
-        }
-
-        .reflection-prompt::before {
-            content: '💭 ';
-            font-size: 1.1rem;
-        }
-
-        /* Strong text */
-        strong {
-            font-weight: 600;
-            color: #1a3a3a;
-        }
-
-        /* Table of Contents */
-        .toc {
-            background: white;
-            padding: 25mm 20mm;
-        }
-
-        .toc h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #1a3a3a;
-        }
-
-        .toc-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px dotted #ccc;
-            font-size: 14px;
-        }
-
-        .toc-item:last-child {
-            border-bottom: none;
-        }
-
-        .toc-title {
-            font-weight: 500;
-            color: #333;
-        }
-
-        .toc-page {
-            font-weight: 600;
-            color: #26a69a;
-            min-width: 30px;
-            text-align: right;
-        }
-
-        /* Chapter starts */
-        .chapter-start {
-            margin-top: 0;
-            padding-top: 30mm;
-        }
-
-        /* Navigation for digital viewing */
-        .nav-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .nav-button {
-            display: block;
-            width: 100%;
-            padding: 8px 15px;
-            margin: 5px 0;
-            background: #4db6ac;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-size: 12px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        .nav-button:hover {
-            background: #26a69a;
-        }
-
-        /* Print styles */
-        @media print {
-            .nav-container {
-                display: none;
-            }
-            
-            .page {
-                box-shadow: none;
-                margin-bottom: 0;
-            }
-            
-            body {
-                background: white;
-            }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .book-container {
-                max-width: 100%;
-                margin: 0;
-            }
-            
-            .page {
-                width: 100%;
-                min-height: auto;
-                padding: 20px;
-                margin-bottom: 10px;
-            }
-            
-            .cover h1 {
-                font-size: 2.5rem;
-            }
-            
-            .cover .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .formula-steps {
-                flex-direction: column;
-            }
-            
-            .nav-container {
-                position: relative;
-                margin: 20px;
-            }
-        }
-    </style>
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--border); padding: 28px 24px;
+  text-align: center; font-size: .76rem; color: var(--grey2); font-weight: 400;
+}
+</style>
 </head>
 <body>
-    <div class="nav-container">
-        <button class="nav-button" onclick="scrollToPage('cover')">Cover</button>
-        <button class="nav-button" onclick="scrollToPage('toc')">Contents</button>
-        <button class="nav-button" onclick="scrollToPage('intro')">Introduction</button>
-        <button class="nav-button" onclick="scrollToPage('ch1')">Chapter 1</button>
-        <button class="nav-button" onclick="scrollToPage('ch2')">Chapter 2</button>
-        <button class="nav-button" onclick="scrollToPage('ch3')">Chapter 3</button>
-        <button class="nav-button" onclick="scrollToPage('ch4')">Chapter 4</button>
-        <button class="nav-button" onclick="scrollToPage('ch5')">Chapter 5</button>
-        <button class="nav-button" onclick="scrollToPage('ch6')">Chapter 6</button>
-        <button class="nav-button" onclick="scrollToPage('ch7')">Chapter 7</button>
-        <button class="nav-button" onclick="scrollToPage('ch8')">Chapter 8</button>
+<div class="noise"></div>
+
+<!-- ═══════════════════════════════════════
+  ① HEADLINE  ② SUPPORTING HEADLINE
+  ③ OFFER COPY  ④ PRIMARY FORM  ⑤ PRIMARY CTA
+════════════════════════════════════════ -->
+<section class="hero">
+  <div class="glow-hero"></div>
+  <div class="grid-lines">
+    <svg viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="g" width="56" height="56" patternUnits="userSpaceOnUse"><path d="M56 0L0 0 0 56" fill="none" stroke="white" stroke-width=".5"/></pattern></defs>
+      <rect width="1440" height="700" fill="url(#g)"/>
+      <line x1="0" y1="700" x2="820" y2="0" stroke="white" stroke-width=".9" opacity=".55"/>
+      <line x1="300" y1="700" x2="1140" y2="0" stroke="white" stroke-width=".5" opacity=".3"/>
+      <line x1="1440" y1="650" x2="620" y2="0" stroke="white" stroke-width=".5" opacity=".3"/>
+    </svg>
+  </div>
+
+  <div class="container" style="position:relative;z-index:2">
+
+    <!-- Logo -->
+    <div class="au hero-logo">
+      <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 8.5c0 0 4.2-2 8-0C16.8 10.5 21 8.5 21 8.5" stroke="#0d0e0b" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M5 13c0 0 4.2-2 8 0c3.8 2 8 0 8 0" stroke="#0d0e0b" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M5 17.5c0 0 4.2-2 8 0c3.8 2 8 0 8 0" stroke="#0d0e0b" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
     </div>
 
-    <div class="book-container">
-        <!-- Cover Page -->
-        <div class="page cover" id="cover">
-            <h1>The Authority<br>Flywheel</h1>
-            <p class="subtitle">How to Craft Offers, Generate Leads,<br>and Convert Sales Without Burnout</p>
-            <div class="flywheel-icon"></div>
-        </div>
-
-        <!-- Table of Contents -->
-        <div class="page toc" id="toc">
-            <h2>Table of Contents</h2>
-            <div class="toc-item">
-                <span class="toc-title">Introduction: Stop Chasing Clients—Start Building a Flywheel</span>
-                <span class="toc-page">3</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 1: The Authority Mindset</span>
-                <span class="toc-page">4</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 2: Craft Offers That Sell</span>
-                <span class="toc-page">6</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 3: Lead Generation That Actually Works</span>
-                <span class="toc-page">8</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 4: Convert Leads Into Paying Clients Without Being Pushy</span>
-                <span class="toc-page">10</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 5: Systematize for Scale</span>
-                <span class="toc-page">12</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 6: Avoid Burnout While Growing Fast</span>
-                <span class="toc-page">14</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 7: Case Studies & Real-Life Flywheels</span>
-                <span class="toc-page">16</span>
-            </div>
-            <div class="toc-item">
-                <span class="toc-title">Chapter 8: Putting It All Together</span>
-                <span class="toc-page">18</span>
-            </div>
-            <div class="page-number">2</div>
-        </div>
-
-        <!-- Introduction -->
-        <div class="page" id="intro">
-            <h1>Introduction</h1>
-            <h2>Stop Chasing Clients—Start Building a Flywheel</h2>
-            
-            <p>You're tired. Hustling nonstop. Posting, cold-messaging, running ads. Sometimes it works. Mostly, it doesn't.</p>
-            
-            <p>Here's the truth: <strong>Traditional marketing is broken.</strong> Posting on social media, hoping for leads, begging for clients—it's not scalable. It's not sustainable. And it will burn you out before your business ever reaches real momentum.</p>
-            
-            <div class="framework-box">
-                <h3>Imagine your business as a flywheel.</h3>
-                <p>Once it starts spinning, momentum builds. Every action—content, calls, offers—pushes the wheel faster. The best part? Once it's rolling, it generates leads, conversions, and revenue without you chasing every client.</p>
-            </div>
-
-            <p>By the end of this book, you'll have a <strong>repeatable system</strong> that:</p>
-            <ul>
-                <li>Positions you as the authority clients trust</li>
-                <li>Crafts offers people can't resist</li>
-                <li>Generates leads consistently</li>
-                <li>Converts leads without being pushy</li>
-                <li>Scales without burning out</li>
-            </ul>
-
-            <div class="reflection-prompt">
-                <strong>Reflection Prompt:</strong> Write down your biggest struggle in generating leads or closing clients right now. Keep it in mind—it's about to get solved.
-            </div>
-            
-            <div class="page-number">3</div>
-        </div>
-
-        <!-- Chapter 1 -->
-        <div class="page chapter-start" id="ch1">
-            <h1>Chapter 1</h1>
-            <h2>The Authority Mindset</h2>
-            
-            <div class="hook">
-                You can't sell what you aren't known for.
-            </div>
-
-            <p>Authority is the <strong>engine</strong> of your flywheel. Without it, every other step—offers, leads, conversions—becomes 10x harder.</p>
-
-            <h3>The 3 Levels of Authority</h3>
-            
-            <div class="framework-box">
-                <h4>1. Visibility Authority: Being seen in the right places.</h4>
-                <ul>
-                    <li>Social media posts, webinars, podcasts</li>
-                    <li>Your audience must see you <strong>before they believe you</strong></li>
-                </ul>
-            </div>
-
-            <div class="framework-box">
-                <h4>2. Expert Authority: Showing results and deep knowledge.</h4>
-                <div class="case-study">
-                    <h4>Case Study:</h4>
-                    <p>A coach posted tips and client transformations for 3 months and built a waiting list without ads.</p>
-                </div>
-            </div>
-
-            <div class="framework-box">
-                <h4>3. Relational Authority: Trust and connection.</h4>
-                <ul>
-                    <li>People buy from people they like and trust</li>
-                    <li>Tactics: Personal stories, transparency, understanding pain</li>
-                </ul>
-            </div>
-
-            <div class="case-study">
-                <h4>Story / Analogy:</h4>
-                <p>Walk into a room full of strangers. One has a nametag, a book, and recommendations pinned to their shirt. Another has nothing. Who do you trust? That's authority.</p>
-            </div>
-            
-            <div class="page-number">4</div>
-        </div>
-
-        <!-- Chapter 1 continued -->
-        <div class="page">
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>List 3 ways to increase <strong>visibility</strong> this month</li>
-                    <li>List 3 ways to show <strong>expert authority</strong></li>
-                    <li>List 3 ways to build <strong>relational authority</strong></li>
-                    <li>Pick <strong>one from each</strong> and implement this week</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Authority is non-negotiable for high-ticket sales</li>
-                    <li>Visibility = noticed; Expertise = believed; Relationships = bought from</li>
-                    <li>Small, consistent actions compound over time</li>
-                </ul>
-            </div>
-
-            <p>The authority flywheel starts with you being seen, believed, and trusted. Without these three pillars, everything else becomes exponentially harder. The good news? You don't need to be perfect. You just need to be consistent.</p>
-
-            <p>Most entrepreneurs make the mistake of trying to be visible everywhere. Instead, pick one platform, master it, then expand. Authority isn't about being loud—it's about being reliable.</p>
-
-            <div class="reflection-prompt">
-                Which level of authority do you need to work on most? Write down one specific action you'll take this week to improve it.
-            </div>
-            
-            <div class="page-number">5</div>
-        </div>
-
-        <!-- Chapter 2 -->
-        <div class="page chapter-start" id="ch2">
-            <h1>Chapter 2</h1>
-            <h2>Craft Offers That Sell</h2>
-            
-            <div class="hook">
-                Most offers fail—not because the market isn't ready—but because they're packaged wrong.
-            </div>
-
-            <p>Your offer is the bridge between your authority and your revenue. Get this wrong, and no amount of traffic will save you. Get it right, and clients will line up to work with you.</p>
-
-            <h3>Offer Anatomy</h3>
-            <ul>
-                <li><strong>Clear Transformation:</strong> What clients walk away with</li>
-                <li><strong>Specific Outcomes:</strong> Avoid vagueness at all costs</li>
-                <li><strong>High Perceived Value:</strong> Bonuses, VIP access, exclusive content</li>
-                <li><strong>Risk Reversal:</strong> Guarantees, trials, or personal follow-up</li>
-            </ul>
-
-            <h3>Offer Types</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Example</th>
-                        <th>Why it works</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>High-Ticket</td>
-                        <td>$3,500 coaching program</td>
-                        <td>Deep transformation, high-value</td>
-                    </tr>
-                    <tr>
-                        <td>Digital Product</td>
-                        <td>Online course/toolkit</td>
-                        <td>Scalable, low effort</td>
-                    </tr>
-                    <tr>
-                        <td>Recurring Program</td>
-                        <td>Membership/subscription</td>
-                        <td>Predictable income, builds community</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>The Offer Formula</h3>
-            <div class="formula-steps">
-                <div class="step">
-                    <span class="step-number">1</span>
-                    Identify Pain
-                </div>
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">2</span>
-                    Amplify Desire
-                </div>
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">3</span>
-                    Outline Transformation
-                </div>
-            </div>
-            <div class="formula-steps">
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">4</span>
-                    Add Bonuses
-                </div>
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">5</span>
-                    Set Price
-                </div>
-            </div>
-            
-            <div class="page-number">6</div>
-        </div>
-
-        <!-- Chapter 2 continued -->
-        <div class="page">
-            <div class="case-study">
-                <h4>Example in Action:</h4>
-                <ul>
-                    <li><strong>Pain:</strong> Struggling to get leads</li>
-                    <li><strong>Desire:</strong> 50+ qualified leads per month</li>
-                    <li><strong>Transformation:</strong> 30-day content + outreach system</li>
-                    <li><strong>Bonuses:</strong> Templates, email scripts, live coaching</li>
-                    <li><strong>Price:</strong> $3,500</li>
-                </ul>
-            </div>
-
-            <p>The biggest mistake entrepreneurs make is focusing on features instead of outcomes. Your clients don't care about your 12-module course. They care about the result: more leads, more sales, more freedom.</p>
-
-            <p>Price your offers based on value, not time. If you can help someone make an extra $10,000 per month, charging $3,500 is a no-brainer for them. Always anchor your price to the transformation you provide.</p>
-
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>List your top 3 client pain points</li>
-                    <li>Pick one and write the desired transformation</li>
-                    <li>Draft your offer using the 5-step formula</li>
-                    <li>Add one bonus to increase perceived value</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Offers fail because they're unclear or undervalued</li>
-                    <li>Focus on results, not features</li>
-                    <li>High-ticket, digital, and recurring offers all have leverage</li>
-                    <li>Price based on value delivered, not time invested</li>
-                </ul>
-            </div>
-
-            <div class="reflection-prompt">
-                What's the biggest transformation you can provide to clients? How would their life or business change after working with you?
-            </div>
-            
-            <div class="page-number">7</div>
-        </div>
-
-        <!-- Chapter 3 -->
-        <div class="page chapter-start" id="ch3">
-            <h1>Chapter 3</h1>
-            <h2>Lead Generation That Actually Works</h2>
-            
-            <div class="hook">
-                Leads aren't found—they're earned.
-            </div>
-
-            <p>Most entrepreneurs treat lead generation like a slot machine. Post something, hope for the best. This approach burns cash and crushes morale. Instead, treat it like a science. Test, measure, optimize, repeat.</p>
-
-            <h3>The 5 Lead Channels</h3>
-            <div class="roadmap">
-                <div class="roadmap-step">
-                    <h4>Social Media</h4>
-                    <p>Posts, reels, stories that showcase expertise</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Email & Newsletters</h4>
-                    <p>Direct communication with your audience</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Webinars & Workshops</h4>
-                    <p>High-value demonstrations of your expertise</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Paid Traffic</h4>
-                    <p>Targeted ads and retargeting campaigns</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Referral Partnerships</h4>
-                    <p>Joint ventures and strategic alliances</p>
-                </div>
-            </div>
-
-            <p>Here's the truth about lead generation: <strong>consistency beats perfection</strong>. One good post every day for 90 days will outperform 10 perfect posts scattered randomly over the same period.</p>
-
-            <div class="case-study">
-                <h4>Real Story:</h4>
-                <p>A business consultant focused solely on LinkedIn for 6 months. Three posts per week, commenting on 5 posts daily, one value-packed article weekly. Result? 50+ qualified leads per month and a $500K pipeline.</p>
-            </div>
-
-            <h3>The Content Multiplier Strategy</h3>
-            <p>Create once, distribute everywhere. Take one piece of core content and adapt it for multiple platforms:</p>
-            <ul>
-                <li><strong>Blog post</strong> → LinkedIn article → Twitter thread → Instagram carousel → YouTube video</li>
-                <li><strong>Client case study</strong> → Social proof post → Email sequence → Webinar story</li>
-                <li><strong>Framework</strong> → Infographic → Workshop → Lead magnet</li>
-            </ul>
-            
-            <div class="page-number">8</div>
-        </div>
-
-        <!-- Chapter 3 continued -->
-        <div class="page">
-            <div class="framework-box">
-                <h3>The 90-Day Lead Generation Sprint</h3>
-                <h4>Days 1-30: Foundation</h4>
-                <ul>
-                    <li>Choose 2 primary channels</li>
-                    <li>Create content calendar</li>
-                    <li>Set up tracking systems</li>
-                </ul>
-                
-                <h4>Days 31-60: Optimization</h4>
-                <ul>
-                    <li>Analyze what's working</li>
-                    <li>Double down on best content</li>
-                    <li>A/B test headlines and formats</li>
-                </ul>
-                
-                <h4>Days 61-90: Scale</h4>
-                <ul>
-                    <li>Increase posting frequency</li>
-                    <li>Add paid promotion to best content</li>
-                    <li>Launch referral partnerships</li>
-                </ul>
-            </div>
-
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>Identify 2 channels to focus on for the next 30 days</li>
-                    <li>Schedule 3 actions per week for each channel</li>
-                    <li>Set up basic tracking (leads, engagement, conversions)</li>
-                    <li>Create your first week of content</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Focus beats randomness every time</li>
-                    <li>Consistency compounds faster than perfection</li>
-                    <li>Measure results and double down on what works</li>
-                    <li>One piece of content can be multiplied across platforms</li>
-                </ul>
-            </div>
-
-            <div class="reflection-prompt">
-                Which two lead generation channels align best with your strengths and your ideal client's preferences?
-            </div>
-            
-            <div class="page-number">9</div>
-        </div>
-
-        <!-- Chapter 4 -->
-        <div class="page chapter-start" id="ch4">
-            <h1>Chapter 4</h1>
-            <h2>Convert Leads Into Paying Clients Without Being Pushy</h2>
-            
-            <div class="hook">
-                Selling = guiding someone from confused → confident.
-            </div>
-
-            <p>Most people hate selling because they think it's manipulation. It's not. Great selling is problem-solving. You're helping confused prospects become confident clients by showing them the path to their desired outcome.</p>
-
-            <h3>The Flywheel Conversion Process</h3>
-            <div class="formula-steps">
-                <div class="step">
-                    <span class="step-number">1</span>
-                    Qualify
-                </div>
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">2</span>
-                    Understand Needs
-                </div>
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">3</span>
-                    Show Transformation
-                </div>
-            </div>
-            <div class="formula-steps">
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">4</span>
-                    Overcome Objections
-                </div>
-                <span class="arrow">→</span>
-                <div class="step">
-                    <span class="step-number">5</span>
-                    Close Confidently
-                </div>
-            </div>
-
-            <h3>Step 1: Qualify (Do they fit?)</h3>
-            <p>Not every lead is a good lead. Ask these questions early:</p>
-            <ul>
-                <li>Do they have the problem you solve?</li>
-                <li>Do they have the budget to invest?</li>
-                <li>Are they committed to change?</li>
-                <li>Can you realistically help them?</li>
-            </ul>
-
-            <div class="framework-box">
-                <h4>The Qualification Script:</h4>
-                <p>"Before we dive in, I want to make sure I can actually help you. Can you tell me about [specific problem] and what you've tried so far?"</p>
-            </div>
-
-            <h3>Step 2: Understand Needs (What do they really want?)</h3>
-            <p>People buy outcomes, not features. Dig deeper:</p>
-            <ul>
-                <li>"What would success look like for you?"</li>
-                <li>"What happens if you don't solve this problem?"</li>
-                <li>"What's the real cost of staying where you are?"</li>
-            </ul>
-            
-            <div class="page-number">10</div>
-        </div>
-
-        <!-- Chapter 4 continued -->
-        <div class="page">
-            <h3>Step 3: Show Transformation (How you'll get them there)</h3>
-            <p>This is where you present your offer. But don't just list features—paint the picture:</p>
-
-            <div class="framework-box">
-                <h4>The Transformation Bridge:</h4>
-                <p>"Here's where you are now... Here's where you want to be... And here's exactly how we'll get you there..."</p>
-            </div>
-
-            <h3>Step 4: Overcome Objections (Address their concerns)</h3>
-            <p>Every objection is a request for more information. The big three:</p>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Objection</th>
-                        <th>What they mean</th>
-                        <th>How to respond</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>"I need to think about it"</td>
-                        <td>I'm not convinced</td>
-                        <td>Ask what specifically they need to think about</td>
-                    </tr>
-                    <tr>
-                        <td>"I can't afford it"</td>
-                        <td>I don't see the value</td>
-                        <td>Return to the cost of NOT solving the problem</td>
-                    </tr>
-                    <tr>
-                        <td>"I need to talk to my partner"</td>
-                        <td>I'm not the decision maker</td>
-                        <td>Should have qualified this earlier</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Step 5: Close Confidently (Ask for the sale)</h3>
-            <p>Most people lose the sale because they never ask for it. After handling objections:</p>
-
-            <div class="framework-box">
-                <h4>The Assumptive Close:</h4>
-                <p>"Based on everything we've discussed, it sounds like this is exactly what you need. Should we get started today or would you prefer to begin next week?"</p>
-            </div>
-
-            <div class="case-study">
-                <h4>Story / Analogy:</h4>
-                <p>Think of grocery store impulse buys. They work because of structure + timing + placement. Same with high-ticket offers. Right process + right moment + clear next step = decision made easily.</p>
-            </div>
-
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>Script your discovery call using the 5-step process</li>
-                    <li>Practice objection handling with a friend or colleague</li>
-                    <li>Record yourself delivering your offer presentation</li>
-                    <li>Time yourself—keep it under 10 minutes</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Selling isn't manipulation—it's structured guidance</li>
-                    <li>Qualify early to avoid wasting time on bad fits</li>
-                    <li>Confidence + clarity = higher conversion rates</li>
-                    <li>Scripts reduce stress and increase close rates</li>
-                </ul>
-            </div>
-            
-            <div class="page-number">11</div>
-        </div>
-
-        <!-- Chapter 5 -->
-        <div class="page chapter-start" id="ch5">
-            <h1>Chapter 5</h1>
-            <h2>Systematize for Scale</h2>
-            
-            <div class="hook">
-                You can't grow a business on willpower alone.
-            </div>
-
-            <p>Every successful business reaches a point where the founder becomes the bottleneck. You have two choices: stay small or build systems. Systems give you leverage. They turn your business into a machine that works without you.</p>
-
-            <h3>The System Stack</h3>
-            <div class="roadmap">
-                <div class="roadmap-step">
-                    <h4>Lead Capture</h4>
-                    <p>Landing pages, forms, lead magnets</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Follow-up</h4>
-                    <p>Email sequences, SMS, retargeting</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Qualification</h4>
-                    <p>Surveys, applications, pre-call forms</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Sales Process</h4>
-                    <p>Scripts, objection handling, closing</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Delivery</h4>
-                    <p>Onboarding, content, community</p>
-                </div>
-                <div class="roadmap-step">
-                    <h4>Support</h4>
-                    <p>FAQs, help desk, account management</p>
-                </div>
-            </div>
-
-            <h3>Automation vs. Delegation</h3>
-            <p>Not everything should be automated. Use this framework:</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task Type</th>
-                        <th>Solution</th>
-                        <th>Example</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Repetitive + Simple</td>
-                        <td>Automate</td>
-                        <td>Email sequences, appointment booking</td>
-                    </tr>
-                    <tr>
-                        <td>Repetitive + Complex</td>
-                        <td>Delegate</td>
-                        <td>Content creation, client onboarding</td>
-                    </tr>
-                    <tr>
-                        <td>Strategic + High-value</td>
-                        <td>Keep</td>
-                        <td>Sales calls, strategy sessions</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>The Content System</h3>
-            <p>Content creation can be systematized too:</p>
-
-            <div class="framework-box">
-                <h4>The Content Factory Method:</h4>
-                <ol>
-                    <li><strong>Batch creation:</strong> Write 10 posts in one session</li>
-                    <li><strong>Content pillars:</strong> 40% education, 30% inspiration, 20% personal, 10% promotion</li>
-                    <li><strong>Repurposing:</strong> One idea becomes 5 different posts across platforms</li>
-                    <li><strong>Scheduling:</strong> Use tools to publish automatically</li>
-                </ol>
-            </div>
-            
-            <div class="page-number">12</div>
-        </div>
-
-        <!-- Chapter 5 continued -->
-        <div class="page">
-            <div class="case-study">
-                <h4>Real Story:</h4>
-                <p>A solopreneur scaled to $500K annually without hiring full-time staff. How? Automated email follow-ups (30 hours/month saved), templated sales calls (20 hours/month saved), and batch content creation (15 hours/month saved). Total: 65 hours per month freed up for high-value activities.</p>
-            </div>
-
-            <h3>Your 90-Day System Build</h3>
-            
-            <div class="framework-box">
-                <h4>Month 1: Foundation</h4>
-                <ul>
-                    <li>Set up CRM and email marketing</li>
-                    <li>Create lead capture pages</li>
-                    <li>Build welcome email sequence</li>
-                </ul>
-                
-                <h4>Month 2: Optimization</h4>
-                <ul>
-                    <li>Add qualification surveys</li>
-                    <li>Create sales call scripts</li>
-                    <li>Set up payment processing</li>
-                </ul>
-                
-                <h4>Month 3: Scale</h4>
-                <ul>
-                    <li>Build onboarding system</li>
-                    <li>Create delivery templates</li>
-                    <li>Set up referral program</li>
-                </ul>
-            </div>
-
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>Map your current workflow from lead to customer</li>
-                    <li>Identify 3 biggest time-wasters</li>
-                    <li>Choose one to automate this month</li>
-                    <li>Set up the automation and test it</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Systems replace stress and create predictability</li>
-                    <li>Automate simple tasks, delegate complex ones, keep strategic ones</li>
-                    <li>Focus energy on high-leverage activities</li>
-                    <li>Build systems gradually—don't try to do everything at once</li>
-                </ul>
-            </div>
-
-            <div class="reflection-prompt">
-                What's the one task you spend too much time on that could be automated or delegated? How many hours per week would that save you?
-            </div>
-            
-            <div class="page-number">13</div>
-        </div>
-
-        <!-- Chapter 6 -->
-        <div class="page chapter-start" id="ch6">
-            <h1>Chapter 6</h1>
-            <h2>Avoid Burnout While Growing Fast</h2>
-            
-            <div class="hook">
-                Scaling doesn't have to cost your health.
-            </div>
-
-            <p>The biggest lie in entrepreneurship? "You have to hustle 24/7 to succeed." This leads to burnout, bad decisions, and businesses that collapse under their own weight. Smart growth is sustainable growth.</p>
-
-            <h3>The Burnout-Proof Flywheel</h3>
-            <p>Sustainable scaling has three pillars:</p>
-
-            <div class="framework-box">
-                <h4>1. Energy Management</h4>
-                <ul>
-                    <li>Work in 90-minute focused sprints</li>
-                    <li>Take breaks between intensive tasks</li>
-                    <li>Protect your peak energy hours for high-value work</li>
-                    <li>Set clear start and stop times</li>
-                </ul>
-            </div>
-
-            <div class="framework-box">
-                <h4>2. Priority Filtering</h4>
-                <ul>
-                    <li>Use the 80/20 rule: 80% of results come from 20% of activities</li>
-                    <li>Say no to good opportunities to say yes to great ones</li>
-                    <li>Delegate or delete everything that doesn't move the needle</li>
-                    <li>Review priorities weekly, not daily</li>
-                </ul>
-            </div>
-
-            <div class="framework-box">
-                <h4>3. Systems Leverage</h4>
-                <ul>
-                    <li>Build once, use forever</li>
-                    <li>Template everything you do more than twice</li>
-                    <li>Automate recurring decisions</li>
-                    <li>Create standard operating procedures</li>
-                </ul>
-            </div>
-
-            <h3>The High-Leverage Hour</h3>
-            <p>Not all work hours are equal. One hour of high-leverage work can be worth 10 hours of busy work.</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>High-Leverage</th>
-                        <th>Medium-Leverage</th>
-                        <th>Low-Leverage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sales calls</td>
-                        <td>Content creation</td>
-                        <td>Social media scrolling</td>
-                    </tr>
-                    <tr>
-                        <td>Strategic planning</td>
-                        <td>Email responses</td>
-                        <td>Busy work tasks</td>
-                    </tr>
-                    <tr>
-                        <td>System building</td>
-                        <td>Networking events</td>
-                        <td>Perfectionist tweaking</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="page-number">14</div>
-        </div>
-
-        <!-- Chapter 6 continued -->
-        <div class="page">
-            <div class="case-study">
-                <h4>Real Story:</h4>
-                <p>An entrepreneur was working 80-hour weeks and feeling overwhelmed. After a one-week audit, they discovered: 20 hours spent on email, 15 hours on social media, 10 hours on "research." By automating emails, batching social media, and eliminating research rabbit holes, they cut their workweek to 40 hours while increasing revenue 30%.</p>
-            </div>
-
-            <h3>The Sustainable Growth Framework</h3>
-            
-            <div class="framework-box">
-                <h4>Week 1: Audit</h4>
-                <p>Track every hour for one week. Where does your time actually go?</p>
-                
-                <h4>Week 2: Eliminate</h4>
-                <p>Cut activities that don't directly contribute to growth or fulfillment.</p>
-                
-                <h4>Week 3: Automate</h4>
-                <p>Set up systems for repetitive tasks.</p>
-                
-                <h4>Week 4: Optimize</h4>
-                <p>Focus on high-leverage activities during peak energy hours.</p>
-            </div>
-
-            <h3>Practical Burnout Prevention</h3>
-            <ul>
-                <li><strong>Time-blocking:</strong> Schedule focused work in 90-minute blocks</li>
-                <li><strong>Batching:</strong> Group similar tasks (all calls on Tuesday, all content on Wednesday)</li>
-                <li><strong>Boundaries:</strong> No work emails after 6 PM, weekends protected</li>
-                <li><strong>Outsourcing:</strong> Delegate tasks under $50/hour value</li>
-            </ul>
-
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>Track your time for one week (be honest!)</li>
-                    <li>Identify your top 3 time wasters</li>
-                    <li>Plan a high-leverage-only schedule for next week</li>
-                    <li>Set one non-negotiable boundary and stick to it</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Productivity is not busyness—it's results per hour invested</li>
-                    <li>High-leverage activities compound; low-leverage activities consume</li>
-                    <li>Protect your energy like it's your most valuable asset (it is)</li>
-                    <li>Sustainable systems beat unsustainable hustle every time</li>
-                </ul>
-            </div>
-
-            <div class="reflection-prompt">
-                What's one boundary you need to set to protect your energy and focus? How will you enforce it starting this week?
-            </div>
-            
-            <div class="page-number">15</div>
-        </div>
-
-        <!-- Chapter 7 -->
-        <div class="page chapter-start" id="ch7">
-            <h1>Chapter 7</h1>
-            <h2>Case Studies & Real-Life Flywheels</h2>
-            
-            <div class="hook">
-                Seeing is believing. Here's proof the flywheel works.
-            </div>
-
-            <h3>Case Study 1: The High-Ticket Coach</h3>
-            <div class="case-study">
-                <h4>Background:</h4>
-                <p>Sarah, a business coach, was struggling to get consistent clients. She was posting randomly on social media and hoping for the best.</p>
-                
-                <h4>The Flywheel Implementation:</h4>
-                <ul>
-                    <li><strong>Authority:</strong> Posted 3 value-packed LinkedIn articles per week for 6 months</li>
-                    <li><strong>Offer:</strong> Created a $5,000 "90-Day Revenue Acceleration" program</li>
-                    <li><strong>Lead Gen:</strong> Hosted monthly free workshops, building email list of 500+</li>
-                    <li><strong>Conversion:</strong> Used discovery call script, converted 40% of qualified leads</li>
-                    <li><strong>Systems:</strong> Automated email sequences, templated onboarding</li>
-                </ul>
-                
-                <h4>Results:</h4>
-                <p>0 → $30K/month in 8 months. Now books 6 months in advance with a waiting list.</p>
-            </div>
-
-            <h3>Case Study 2: The Digital Product Creator</h3>
-            <div class="case-study">
-                <h4>Background:</h4>
-                <p>Mike, a marketing consultant, wanted to scale beyond trading time for money.</p>
-                
-                <h4>The Flywheel Implementation:</h4>
-                <ul>
-                    <li><strong>Authority:</strong> Created daily Twitter threads about marketing tactics</li>
-                    <li><strong>Offer:</strong> Launched $497 "Marketing Toolkit" with templates and frameworks</li>
-                    <li><strong>Lead Gen:</strong> Free lead magnet (email template pack) attracted 2,000 subscribers</li>
-                    <li><strong>Conversion:</strong> Email sequence with case studies and social proof</li>
-                    <li><strong>Systems:</strong> Fully automated sales funnel</li>
-                </ul>
-                
-                <h4>Results:</h4>
-                <p>$2K → $25K/month in recurring digital sales. Works 25 hours/week.</p>
-            </div>
-
-            <h3>Case Study 3: The Membership Builder</h3>
-            <div class="case-study">
-                <h4>Background:</h4>
-                <p>Lisa, a fitness coach, wanted predictable recurring revenue instead of one-off clients.</p>
-                
-                <h4>The Flywheel Implementation:</h4>
-                <ul>
-                    <li><strong>Authority:</strong> Posted workout videos and transformation stories on Instagram</li>
-                    <li><strong>Offer:</strong> $97/month membership with workouts, meal plans, and community</li>
-                    <li><strong>Lead Gen:</strong> Free 7-day challenge funneled into membership</li>
-                    <li><strong>Conversion:</strong> Challenge participants converted at 25%</li>
-                    <li><strong>Systems:</strong> Automated onboarding, content library, community platform</li>
-                </ul>
-                
-                <h4>Results:</h4>
-                <p>500 members × $97 = $48,500/month recurring revenue. 95% retention rate.</p>
-            </div>
-            
-            <div class="page-number">16</div>
-        </div>
-
-        <!-- Chapter 7 continued -->
-        <div class="page">
-            <h3>What Made These Flywheels Work</h3>
-            
-            <div class="framework-box">
-                <h4>Common Success Factors:</h4>
-                <ol>
-                    <li><strong>Consistency:</strong> All showed up regularly, not sporadically</li>
-                    <li><strong>Value First:</strong> Gave massive value before asking for anything</li>
-                    <li><strong>Clear Positioning:</strong> Known for solving one specific problem</li>
-                    <li><strong>Systems Thinking:</strong> Built processes, not just random tactics</li>
-                    <li><strong>Patience:</strong> Understood momentum takes time to build</li>
-                </ol>
-            </div>
-
-            <h3>Common Failure Patterns to Avoid</h3>
-            <ul>
-                <li><strong>Shiny Object Syndrome:</strong> Jumping between tactics every few weeks</li>
-                <li><strong>Perfectionism Paralysis:</strong> Waiting for the "perfect" content or offer</li>
-                <li><strong>No Clear Niche:</strong> Trying to help everyone instead of someone specific</li>
-                <li><strong>All Tactics, No Strategy:</strong> Random activities without clear objectives</li>
-                <li><strong>Impatience:</strong> Expecting overnight results from flywheel building</li>
-            </ul>
-
-            <div class="case-study">
-                <h4>The Anti-Pattern Example:</h4>
-                <p>James tried everything: Facebook ads one month, LinkedIn outreach the next, then TikTok, then webinars, then podcasting. After 18 months, he had nothing to show for it. Why? He never gave any single strategy time to build momentum. The flywheel needs sustained effort to spin.</p>
-            </div>
-
-            <div class="exercise-box">
-                <h4>Action Exercise:</h4>
-                <ul>
-                    <li>Compare your current approach to one of the successful case studies</li>
-                    <li>Identify which success factors you're missing</li>
-                    <li>Choose one failure pattern to eliminate from your approach</li>
-                    <li>Commit to one strategy for the next 90 days minimum</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Key Takeaways:</h4>
-                <ul>
-                    <li>Success comes from consistent execution, not perfect strategy</li>
-                    <li>Different business models can use the same flywheel principles</li>
-                    <li>Patience and persistence are competitive advantages</li>
-                    <li>Systems enable scale; hustle doesn't</li>
-                </ul>
-            </div>
-
-            <div class="reflection-prompt">
-                Which case study resonates most with your business model? What's the first step you could implement from their approach?
-            </div>
-            
-            <div class="page-number">17</div>
-        </div>
-
-        <!-- Chapter 8 -->
-        <div class="page chapter-start" id="ch8">
-            <h1>Chapter 8</h1>
-            <h2>Putting It All Together</h2>
-            
-            <div class="hook">
-                Momentum is everything. Now let's build yours.
-            </div>
-
-            <p>You now have all the pieces. The question isn't what to do—it's what to do first. The flywheel works because each component reinforces the others. But you can't build everything at once.</p>
-
-            <h3>Your 90-Day Flywheel Launch Plan</h3>
-            
-            <div class="framework-box">
-                <h4>Phase 1: Foundation (Days 1-30)</h4>
-                <ul>
-                    <li><strong>Week 1:</strong> Choose your niche and authority positioning</li>
-                    <li><strong>Week 2:</strong> Create your core offer using the 5-step formula</li>
-                    <li><strong>Week 3:</strong> Set up basic systems (CRM, email, landing page)</li>
-                    <li><strong>Week 4:</strong> Create your first month of content</li>
-                </ul>
-            </div>
-
-            <div class="framework-box">
-                <h4>Phase 2: Momentum (Days 31-60)</h4>
-                <ul>
-                    <li><strong>Week 5-6:</strong> Launch consistent content across 2 chosen channels</li>
-                    <li><strong>Week 7-8:</strong> Start engaging with prospects and generating leads</li>
-                </ul>
-            </div>
-
-            <div class="framework-box">
-                <h4>Phase 3: Optimization (Days 61-90)</h4>
-                <ul>
-                    <li><strong>Week 9-10:</strong> Analyze what's working, double down on best content</li>
-                    <li><strong>Week 11-12:</strong> Optimize conversion process, start closing sales</li>
-                </ul>
-            </div>
-
-            <h3>The Flywheel Visual</h3>
-            <div style="text-align: center; margin: 30px 0;">
-                <div style="width: 300px; height: 300px; border: 4px solid #4db6ac; border-radius: 50%; margin: 0 auto; position: relative; background: linear-gradient(135deg, rgba(77, 182, 172, 0.1) 0%, rgba(38, 166, 154, 0.05) 100%);">
-                    <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-weight: 600; color: #26a69a;">AUTHORITY</div>
-                    <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #26a69a;">OFFERS</div>
-                    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-weight: 600; color: #26a69a;">LEADS</div>
-                    <div style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #26a69a;">SALES</div>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: #1a3a3a; font-size: 18px;">FLYWHEEL</div>
-                </div>
-            </div>
-            
-            <div class="page-number">18</div>
-        </div>
-
-        <!-- Chapter 8 continued -->
-        <div class="page">
-            <h3>Your Success Metrics</h3>
-            <p>Track these numbers weekly to ensure your flywheel is spinning:</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Month 1 Goal</th>
-                        <th>Month 3 Goal</th>
-                        <th>Month 6 Goal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Content pieces published</td>
-                        <td>12</td>
-                        <td>36</td>
-                        <td>72</td>
-                    </tr>
-                    <tr>
-                        <td>Email subscribers</td>
-                        <td>50</td>
-                        <td>200</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>Discovery calls booked</td>
-                        <td>2</td>
-                        <td>8</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>Clients closed</td>
-                        <td>1</td>
-                        <td>3</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>Monthly revenue</td>
-                        <td>$3K</td>
-                        <td>$10K</td>
-                        <td>$20K</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Common Roadblocks and Solutions</h3>
-            
-            <div class="framework-box">
-                <h4>Roadblock 1: "I don't know what to post"</h4>
-                <p><strong>Solution:</strong> Use the 40-30-20-10 rule. 40% educational content, 30% inspirational, 20% personal stories, 10% promotional.</p>
-                
-                <h4>Roadblock 2: "I'm not getting any leads"</h4>
-                <p><strong>Solution:</strong> Check your call-to-action. Every piece of content needs a clear next step.</p>
-                
-                <h4>Roadblock 3: "People aren't buying"</h4>
-                <p><strong>Solution:</strong> Return to your offer. Is the transformation clear? Is the value obvious?</p>
-                
-                <h4>Roadblock 4: "I don't have time"</h4>
-                <p><strong>Solution:</strong> Batch create content. Spend 2 hours creating 10 posts, not 20 minutes per post.</p>
-            </div>
-
-            <h3>Your Flywheel Checklist</h3>
-            <p>Before you launch, ensure you have:</p>
-            
-            <ul>
-                <li>☐ Clear niche and positioning statement</li>
-                <li>☐ Irresistible offer with specific transformation</li>
-                <li>☐ Lead capture system set up</li>
-                <li>☐ Email follow-up sequence created</li>
-                <li>☐ Sales process and scripts ready</li>
-                <li>☐ First month of content planned</li>
-                <li>☐ Two primary channels chosen</li>
-                <li>☐ Success metrics defined and tracking set up</li>
-            </ul>
-
-            <div class="exercise-box">
-                <h4>Final Action Exercise:</h4>
-                <ul>
-                    <li>Complete your flywheel checklist above</li>
-                    <li>Block out your next 90 days using the launch plan</li>
-                    <li>Create your first week of content right now</li>
-                    <li>Set a daily reminder to work on your flywheel</li>
-                    <li>Find an accountability partner or coach</li>
-                </ul>
-            </div>
-
-            <div class="takeaways">
-                <h4>Final Takeaways:</h4>
-                <ul>
-                    <li>The flywheel works, but only with consistent action</li>
-                    <li>Start simple, then optimize as you get momentum</li>
-                    <li>Momentum compounds—every action makes the next one easier</li>
-                    <li>Perfect is the enemy of profitable</li>
-                    <li>Your future self will thank you for starting today</li>
-                </ul>
-            </div>
-            
-            <div class="page-number">19</div>
-        </div>
-
-        <!-- Conclusion -->
-        <div class="page">
-            <h1>Conclusion</h1>
-            <h2>Your Flywheel Starts Now</h2>
-            
-            <p>You have everything you need. The framework, the tactics, the roadmap, and the examples. The only thing missing is action.</p>
-
-            <p>Remember: <strong>The best time to plant a tree was 20 years ago. The second-best time is today.</strong></p>
-
-            <p>Your authority flywheel won't build itself. It requires the same thing every successful business requires: consistent, focused effort over time. But here's what makes it different from the endless hustle you've been trapped in—it gets easier, not harder.</p>
-
-            <div class="framework-box">
-                <h3>The Compound Effect of Authority</h3>
-                <ul>
-                    <li><strong>Month 1:</strong> Feels like pushing a boulder uphill</li>
-                    <li><strong>Month 3:</strong> Starts to feel like walking on flat ground</li>
-                    <li><strong>Month 6:</strong> Feels like walking downhill</li>
-                    <li><strong>Month 12:</strong> Feels like the hill is pushing you forward</li>
-                </ul>
-            </div>
-
-            <p>Every successful entrepreneur has faced the same moment you're facing right now. The moment between knowing what to do and actually doing it. The moment between dreaming about success and building it.</p>
-
-            <p>Most people choose comfort. They go back to random posting, hoping for miracle clients, living in feast-or-famine cycles. But you're not most people. You picked up this book because you're ready for something different.</p>
-
-            <div class="case-study">
-                <h4>Your Story Starts Here:</h4>
-                <p>Six months from now, you could be the case study. The entrepreneur who built a predictable, profitable business using the authority flywheel. The person who scaled without burnout. The business owner who clients seek out instead of chase.</p>
-                
-                <p>Or you could be reading another book, looking for another strategy, still stuck in the same place.</p>
-                
-                <p>The choice is yours.</p>
-            </div>
-
-            <div class="reflection-prompt">
-                What's the first action you'll take today to start building your authority flywheel? Write it down. Set a deadline. Make it happen.
-            </div>
-
-            <div class="takeaways">
-                <h4>Remember:</h4>
-                <ul>
-                    <li>Authority is built one valuable interaction at a time</li>
-                    <li>Offers sell when they solve real problems clearly</li>
-                    <li>Leads are earned through consistent value creation</li>
-                    <li>Sales happen when you guide confused prospects to confident decisions</li>
-                    <li>Systems create freedom, not more work</li>
-                    <li>Sustainable growth beats unsustainable hustle</li>
-                </ul>
-            </div>
-
-            <p><strong>Now go build your flywheel.</strong></p>
-            
-            <div class="page-number">20</div>
-        </div>
-
-        <!-- Appendices -->
-        <div class="page">
-            <h1>Appendix A</h1>
-            <h2>Templates & Worksheets</h2>
-
-            <h3>Offer Creation Worksheet</h3>
-            <div class="framework-box">
-                <h4>1. Pain Identification</h4>
-                <p>What specific problem does your ideal client face?</p>
-                <p>_________________________________________________</p>
-                <p>_________________________________________________</p>
-                
-                <h4>2. Desired Outcome</h4>
-                <p>What result do they want to achieve?</p>
-                <p>_________________________________________________</p>
-                <p>_________________________________________________</p>
-                
-                <h4>3. Transformation Bridge</h4>
-                <p>How will you get them from problem to solution?</p>
-                <p>_________________________________________________</p>
-                <p>_________________________________________________</p>
-                
-                <h4>4. Proof/Credibility</h4>
-                <p>What evidence do you have that this works?</p>
-                <p>_________________________________________________</p>
-                <p>_________________________________________________</p>
-                
-                <h4>5. Investment</h4>
-                <p>What's the value of solving this problem for them?</p>
-                <p>Your price: $_______ (aim for 10-20% of value delivered)</p>
-            </div>
-
-            <h3>Discovery Call Script Template</h3>
-            <div class="framework-box">
-                <h4>Opening (2 minutes)</h4>
-                <p>"Thanks for carving out time today. Before we dive in, can you give me a quick overview of [their business/situation] and what prompted you to book this call?"</p>
-                
-                <h4>Problem Exploration (10 minutes)</h4>
-                <ul>
-                    <li>"Tell me more about [specific challenge they mentioned]"</li>
-                    <li>"What have you tried to solve this so far?"</li>
-                    <li>"What's the impact of not solving this problem?"</li>
-                    <li>"What would success look like for you?"</li>
-                </ul>
-                
-                <h4>Solution Presentation (5 minutes)</h4>
-                <p>"Based on what you've shared, here's exactly how I can help..."</p>
-                <p>[Present your offer focusing on their specific situation]</p>
-                
-                <h4>Close (3 minutes)</h4>
-                <p>"Does this sound like something that would help you achieve [their desired outcome]?"</p>
-                <p>"Great! Should we get started today or would next week work better for you?"</p>
-            </div>
-            
-            <div class="page-number">21</div>
-        </div>
-
-        <!-- Appendix B -->
-        <div class="page">
-            <h1>Appendix B</h1>
-            <h2>Content Calendar Template</h2>
-
-            <h3>Weekly Content Framework</h3>
-            <table style="font-size: 12px;">
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Content Type</th>
-                        <th>Purpose</th>
-                        <th>Example Topics</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Monday</td>
-                        <td>Educational</td>
-                        <td>Teach something valuable</td>
-                        <td>How-to tips, frameworks, strategies</td>
-                    </tr>
-                    <tr>
-                        <td>Tuesday</td>
-                        <td>Case Study</td>
-                        <td>Show proof/results</td>
-                        <td>Client wins, before/after stories</td>
-                    </tr>
-                    <tr>
-                        <td>Wednesday</td>
-                        <td>Personal</td>
-                        <td>Build connection</td>
-                        <td>Behind-scenes, lessons learned</td>
-                    </tr>
-                    <tr>
-                        <td>Thursday</td>
-                        <td>Educational</td>
-                        <td>More value</td>
-                        <td>Industry insights, trend analysis</td>
-                    </tr>
-                    <tr>
-                        <td>Friday</td>
-                        <td>Inspirational</td>
-                        <td>Motivate audience</td>
-                        <td>Success stories, mindset shifts</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Content Ideas Generator</h3>
-            <div class="framework-box">
-                <h4>Fill in the blanks to generate unlimited content:</h4>
-                <ul>
-                    <li>"The biggest mistake [target audience] make with [topic] is..."</li>
-                    <li>"Here's how to [achieve desired outcome] in [timeframe]..."</li>
-                    <li>"Why [common belief] is keeping you stuck..."</li>
-                    <li>"[Number] signs you're ready to [take next step]..."</li>
-                    <li>"What I wish I knew about [topic] when I started..."</li>
-                    <li>"The simple [framework/strategy] that changed everything..."</li>
-                    <li>"Stop doing [common mistake] and start doing [better approach]..."</li>
-                    <li>"Case study: How [client] achieved [specific result]..."</li>
-                </ul>
-            </div>
-
-            <h3>Monthly Content Planning</h3>
-            <div class="framework-box">
-                <h4>Week 1: Foundation</h4>
-                <p>Focus on basic education and establishing credibility</p>
-                
-                <h4>Week 2: Depth</h4>
-                <p>Go deeper into advanced strategies and frameworks</p>
-                
-                <h4>Week 3: Proof</h4>
-                <p>Share case studies, testimonials, and results</p>
-                
-                <h4>Week 4: Community</h4>
-                <p>Engage with audience, ask questions, share personal stories</p>
-            </div>
-            
-            <div class="page-number">22</div>
-        </div>
-
-        <!-- Appendix C -->
-        <div class="page">
-            <h1>Appendix C</h1>
-            <h2>Lead Generation Checklist</h2>
-
-            <h3>Pre-Launch Checklist</h3>
-            <div class="framework-box">
-                <h4>Technical Setup</h4>
-                <ul>
-                    <li>☐ Landing page created and tested</li>
-                    <li>☐ Email marketing platform connected</li>
-                    <li>☐ Welcome email sequence written (5-7 emails)</li>
-                    <li>☐ CRM set up for lead tracking</li>
-                    <li>☐ Analytics tracking installed</li>
-                </ul>
-                
-                <h4>Content Preparation</h4>
-                <ul>
-                    <li>☐ Lead magnet created and valuable</li>
-                    <li>☐ First month of content planned</li>
-                    <li>☐ Content calendar scheduled</li>
-                    <li>☐ Engagement strategy defined</li>
-                </ul>
-                
-                <h4>Process Documentation</h4>
-                <ul>
-                    <li>☐ Lead qualification criteria written</li>
-                    <li>☐ Follow-up process documented</li>
-                    <li>☐ Sales conversation scripts prepared</li>
-                    <li>☐ Objection handling responses ready</li>
-                </ul>
-            </div>
-
-            <h3>Daily Action Items</h3>
-            <table style="font-size: 12px;">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Activity</th>
-                        <th>Platform</th>
-                        <th>Duration</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>9:00 AM</td>
-                        <td>Post valuable content</td>
-                        <td>LinkedIn/Twitter</td>
-                        <td>15 min</td>
-                    </tr>
-                    <tr>
-                        <td>11:00 AM</td>
-                        <td>Engage with 10 relevant posts</td>
-                        <td>Primary platform</td>
-                        <td>20 min</td>
-                    </tr>
-                    <tr>
-                        <td>2:00 PM</td>
-                        <td>Respond to comments/DMs</td>
-                        <td>All platforms</td>
-                        <td>15 min</td>
-                    </tr>
-                    <tr>
-                        <td>4:00 PM</td>
-                        <td>Outreach to 5 ideal prospects</td>
-                        <td>Email/LinkedIn</td>
-                        <td>30 min</td>
-                    </tr>
-                    <tr>
-                        <td>5:00 PM</td>
-                        <td>Follow up with warm leads</td>
-                        <td>Phone/Email</td>
-                        <td>20 min</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Weekly Review Questions</h3>
-            <div class="framework-box">
-                <ul>
-                    <li>How many new leads did I generate this week?</li>
-                    <li>Which content performed best? Why?</li>
-                    <li>What platforms drove the most engagement?</li>
-                    <li>How many discovery calls did I book?</li>
-                    <li>What should I do more of next week?</li>
-                    <li>What should I stop doing?</li>
-                    <li>Am I on track to hit my monthly goals?</li>
-                </ul>
-            </div>
-
-            <div class="page-number">23</div>
-        </div>
-
-        <!-- Final Page -->
-        <div class="page" style="display: flex; align-items: center; justify-content: center; text-align: center;">
-            <div>
-                <h1 style="margin-bottom: 40px; color: #26a69a;">Ready to Build Your Flywheel?</h1>
-                
-                <div class="flywheel-icon" style="margin: 40px auto;"></div>
-                
-                <p style="font-size: 18px; font-weight: 500; margin-bottom: 30px;">
-                    Remember: <strong>Momentum compounds.</strong><br>
-                    Every action makes the next one easier.
-                </p>
-                
-                <div style="background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%); color: white; padding: 30px; border-radius: 15px; font-size: 20px; font-weight: 600;">
-                    Your authority flywheel starts with the next action you take.
-                    <br><br>
-                    Make it count.
-                </div>
-            </div>
-            
-            <div class="page-number">24</div>
-        </div>
+    <!-- Status tag -->
+    <div class="au d1" style="margin-bottom:28px">
+      <span class="tag"><span class="dot"></span>Early Access — Limited Spots Available</span>
     </div>
 
-    <script>
-        function scrollToPage(pageId) {
-            document.getElementById(pageId).scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    <!-- ① KILLER HEADLINE -->
+    <h1 class="au d2">
+      Stop chasing attention.<br>
+      Build <span class="lime">Authority</span> that<br>compounds itself.
+    </h1>
+
+    <!-- ② SUPPORTING HEADLINE -->
+    <p class="hero-sub au d3">
+      The Authority Flywheel Playbook gives founders, consultants & creators the exact system to become the obvious expert in their niche — and let inbound do the selling.
+    </p>
+
+    <!-- ③ MAIN OFFER COPY — value pills -->
+    <div class="hero-offer au d4">
+      <div class="pill">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 1.5l1.8 3.7 4.1.6-3 2.9.7 4L8 10.8 4.4 12.7l.7-4-3-2.9 4.1-.6L8 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        6 core frameworks + 20+ ready-to-use templates
+      </div>
+      <div class="pill">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Early access pricing — before public launch
+      </div>
+      <p class="hero-scarcity">⚡ Only 200 early access spots — 147 already claimed</p>
+    </div>
+
+    <!-- ④ PRIMARY FORM -->
+    <div class="hero-form-wrap au d5">
+      <div class="form-row" id="formRow">
+        <input type="email" id="emailInput" placeholder="Enter your email address" autocomplete="email"/>
+        <!-- ⑤ PRIMARY CTA -->
+        <button class="btn-cta" onclick="handleSubmit()">
+          Reserve my spot
+          <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 7.5h10M8 3l4.5 4.5L8 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <strong>🎉 You're on the list!</strong>
+      <span>We'll email you when early access opens. Check your inbox.</span>
+    </div>
+
+    <p class="form-note au d6">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x=".75" y="4.25" width="10.5" height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4.25V3a2 2 0 0 1 4 0v1.25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      No spam, ever. Unsubscribe anytime. Your data stays private.
+    </p>
+
+    <!-- Avatar proof -->
+    <div class="proof-row au d6">
+      <div class="avatars">
+        <div class="av"><svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="6" fill="#b8e82a"/><ellipse cx="16" cy="26" rx="10" ry="6" fill="#b8e82a" opacity=".45"/></svg></div>
+        <div class="av"><svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="6" fill="#90c060"/><ellipse cx="16" cy="26" rx="10" ry="6" fill="#90c060" opacity=".45"/></svg></div>
+        <div class="av"><svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="6" fill="#d4e870"/><ellipse cx="16" cy="26" rx="10" ry="6" fill="#d4e870" opacity=".45"/></svg></div>
+        <div class="av"><svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="6" fill="#80cc88"/><ellipse cx="16" cy="26" rx="10" ry="6" fill="#80cc88" opacity=".45"/></svg></div>
+        <div class="av"><svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="6" fill="#e2f058"/><ellipse cx="16" cy="26" rx="10" ry="6" fill="#e2f058" opacity=".45"/></svg></div>
+      </div>
+      <span class="proof-text"><b>1,200+ founders & creators</b> already on the waitlist</span>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-wrap au d6">
+      <div class="countdown">
+        <div class="cb"><span class="cn" id="cd-d">00</span><span class="cl">Days</span></div>
+        <span class="csep">:</span>
+        <div class="cb"><span class="cn" id="cd-h">00</span><span class="cl">Hours</span></div>
+        <span class="csep">:</span>
+        <div class="cb"><span class="cn" id="cd-m">00</span><span class="cl">Mins</span></div>
+        <span class="csep">:</span>
+        <div class="cb"><span class="cn" id="cd-s">00</span><span class="cl">Secs</span></div>
+      </div>
+      <div class="cd-note">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x=".8" y="1.8" width="11.4" height="10.4" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M.8 5.5h11.4" stroke="currentColor" stroke-width="1.1"/><path d="M3.8.8v2M9.2.8v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+        Left until early access closes
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  ⑥ FEATURES & BENEFITS
+════════════════════════════════════════ -->
+<section class="benefits">
+  <div class="container--wide">
+    <div class="benefits-intro">
+      <span class="section-label">What's inside</span>
+      <h2>Everything you need to build<br><span class="lime">undeniable authority</span></h2>
+      <p>Six battle-tested modules with plug-and-play frameworks, templates and checklists — no guesswork, no fluff.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="bcard">
+        <div class="bcard-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a7 7 0 1 0 0 14A7 7 0 0 0 9 2z" stroke="currentColor" stroke-width="1.5"/><path d="M9 6v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>The Flywheel Framework</h3>
+        <p>The compounding model that builds authority over time — not a content treadmill you're always running on.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 2l1.8 3.7 4.1.6-3 2.9.7 4L9 11.3 5.4 13.2l.7-4-3-2.9 4.1-.6L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Positioning That Sticks</h3>
+        <p>Own a clear niche POV so your name becomes the obvious reference — even in a crowded space.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 7h8M5 10.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Content Architecture</h3>
+        <p>A pillar + satellite system that generates compound reach — built once, working always.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 9A6 6 0 1 1 3 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 3v6l3.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Trust Acceleration</h3>
+        <p>Distribution, social proof, and partnership levers that dramatically compress the trust-building timeline.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Inbound Conversion</h3>
+        <p>Turn warm attention into qualified leads without feeling sales-y. Scripts, hooks, and real-world examples included.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 14l3.5-7 3.5 5 3-3.5L16 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Measure & Iterate</h3>
+        <p>The only metrics that matter for authority-building — and a simple review process to improve your flywheel monthly.</p>
+      </div>
+    </div>
+
+    <!-- Benefit checklist -->
+    <div class="checklist-wrap">
+      <h3>You'll walk away knowing how to…</h3>
+      <ul class="checklist">
+        <li>
+          <span class="check-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Define a niche POV that attracts your ideal clients on autopilot
+        </li>
+        <li>
+          <span class="check-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Build a content system that grows in value the longer you run it
+        </li>
+        <li>
+          <span class="check-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Leverage distribution channels that compound reach over time
+        </li>
+        <li>
+          <span class="check-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Turn casual readers into warm inbound leads without cold outreach
+        </li>
+        <li>
+          <span class="check-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Use social proof and partnerships to shortcut trust-building by months
+        </li>
+        <li>
+          <span class="check-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Measure what actually matters and iterate your flywheel in 30 days
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  ⑦ SOCIAL PROOF — TESTIMONIALS
+════════════════════════════════════════ -->
+<section class="testimonials">
+  <div class="container--wide">
+    <div class="testimonials-intro">
+      <span class="section-label">Early readers say</span>
+      <h2>Real results from the<br>Authority Flywheel system</h2>
+      <p>Here's what beta readers and pilot cohort members had to say.</p>
+    </div>
+
+    <div class="tgrid">
+      <div class="tcard">
+        <div class="stars">
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+        </div>
+        <blockquote>Within 6 weeks of applying the positioning module, I had <strong>three inbound leads</strong> reach out directly — without a single cold DM. The flywheel framework finally made content feel strategic, not random.</blockquote>
+        <div class="tauthor">
+          <div class="tav">M</div>
+          <div>
+            <div class="tname">Marcus T.</div>
+            <div class="trole">B2B Consultant, Nairobi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+        </div>
+        <blockquote>I've bought plenty of "content strategy" courses. This is the first one that actually explains the <strong>mechanics of why</strong> authority compounds — and gives you a repeatable system to run it.</blockquote>
+        <div class="tauthor">
+          <div class="tav">S</div>
+          <div>
+            <div class="tname">Simi A.</div>
+            <div class="trole">Founder & Executive Coach</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.6 3.5L7 8.8 3.9 10.5l.6-3.5L2 4.5l3.5-.5z"/></svg>
+        </div>
+        <blockquote>The content architecture module alone was worth it. I went from posting randomly to running a proper <strong>pillar system that drove 4× more profile visits</strong> in the first month.</blockquote>
+        <div class="tauthor">
+          <div class="tav">D</div>
+          <div>
+            <div class="tname">David K.</div>
+            <div class="trole">SaaS Founder, Lagos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  ⑧ REASSURANCES — GUARANTEE + FAQ
+════════════════════════════════════════ -->
+<section class="reassure">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <span class="section-label">Peace of mind</span>
+      <h2 style="font-size:clamp(1.6rem,3.5vw,2.3rem);font-weight:800;letter-spacing:-.02em">Still on the fence? We've got answers.</h2>
+    </div>
+    <div class="reassure-grid">
+
+      <!-- Guarantee -->
+      <div class="guarantee-box">
+        <div class="g-badge">🛡️</div>
+        <h3>30-Day Satisfaction Promise</h3>
+        <p>If you get the playbook and it doesn't deliver the clarity and frameworks we promise — email us within 30 days for a full refund, no questions asked.</p>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-wrap">
+        <h3>Frequently asked questions</h3>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What exactly is the Authority Flywheel Playbook?
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a">It's a comprehensive digital playbook (PDF + templates) covering 6 modules: Flywheel Framework, Positioning, Content Architecture, Trust Acceleration, Inbound Conversion, and Measurement. It's designed to be actionable — not just theory.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            When does early access open?
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a">The countdown above shows the exact time. Early access members get the playbook before public launch at a significantly reduced price — and locked in for all future updates.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Who is this best suited for?
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a">Founders, consultants, coaches, and creators who have real expertise but struggle to convert that expertise into consistent inbound attention and trust. If you're tired of cold outreach and random content, this is for you.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Is there a discount for joining the waitlist?
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a">Yes — early access members get a founder's price that won't be available after public launch. The discount is only valid for the first 200 spots, and over 140 are already claimed.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  ⑨ SECONDARY CTA
+════════════════════════════════════════ -->
+<section class="secondary-cta" id="cta2">
+  <div class="glow2"></div>
+  <div class="container">
+    <span class="section-label" style="display:block;margin-bottom:16px">Don't miss early access</span>
+    <h2>Ready to build authority<br>that <span class="lime">works while you sleep?</span></h2>
+    <p>Join the waitlist now. Early access members get the playbook first, at founder's pricing — before public launch.</p>
+
+    <div style="max-width:460px;margin:0 auto 20px">
+      <div class="form-row" id="formRow2" style="border-radius:12px">
+        <input type="email" id="emailInput2" placeholder="Your email address" autocomplete="email"/>
+        <button class="btn-cta" onclick="handleSubmit2()" style="border-radius:9px;padding:14px 22px">
+          Get early access
+          <svg viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M8 3l4.5 4.5L8 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="success-box" id="successBox2" style="margin:0 auto 20px">
+      <strong>🎉 You're in!</strong>
+      <span>Watch your inbox — early access is coming soon.</span>
+    </div>
+
+    <div class="cta-trust">
+      <span class="cta-trust-item">
+        <svg viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5l1.3 2.6 2.9.4-2.1 2.1.5 2.9L6.5 8.2l-2.6 1.3.5-2.9-2.1-2.1 2.9-.4z" stroke="currentColor" stroke-width="1.2"/></svg>
+        No spam ever
+      </span>
+      <span class="cta-trust-item">
+        <svg viewBox="0 0 13 13" fill="none"><rect x=".8" y="4.2" width="11.4" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4.2V3a2.5 2.5 0 0 1 5 0v1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Data stays private
+      </span>
+      <span class="cta-trust-item">
+        <svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M2.5 6.5l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Unsubscribe anytime
+      </span>
+      <span class="cta-trust-item">
+        <svg viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5v4l2.5 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.2"/></svg>
+        60-second signup
+      </span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Authority Flywheel Playbook · Early Access Program · All rights reserved
+  </div>
+</footer>
+
+<script>
+/* ── Countdown (60 days) ── */
+const target = new Date(Date.now() + 60 * 864e5);
+function tick() {
+  const d = Math.max(0, target - Date.now());
+  document.getElementById('cd-d').textContent = String(Math.floor(d/864e5)).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(Math.floor(d%864e5/36e5)).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(Math.floor(d%36e5/6e4)).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(Math.floor(d%6e4/1e3)).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+/* ── Form validation ── */
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function shakeForm(id){
+  const el = document.getElementById(id);
+  el.classList.add('shake');
+  setTimeout(()=>el.classList.remove('shake'), 450);
+}
+function handleSubmit() {
+  const v = document.getElementById('emailInput').value.trim();
+  if (!isEmail(v)) { shakeForm('formRow'); document.getElementById('emailInput').focus(); return; }
+  document.getElementById('formRow').style.display = 'none';
+  document.getElementById('successBox').classList.add('show');
+  console.log('Waitlist #1:', v); // 👈 wire up ConvertKit / Beehiiv / Kit here
+}
+function handleSubmit2() {
+  const v = document.getElementById('emailInput2').value.trim();
+  if (!isEmail(v)) { shakeForm('formRow2'); document.getElementById('emailInput2').focus(); return; }
+  document.getElementById('formRow2').style.display = 'none';
+  document.getElementById('successBox2').classList.add('show');
+  console.log('Waitlist #2:', v);
+}
+document.getElementById('emailInput').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSubmit(); });
+document.getElementById('emailInput2').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSubmit2(); });
+
+/* ── FAQ accordion ── */
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>
