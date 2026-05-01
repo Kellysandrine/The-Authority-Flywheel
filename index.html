@@ -133,7 +133,7 @@ nav {
 /* email form */
 .signup-form {
   animation: fadeUp 0.55s 0.24s ease both;
-  display: flex;  align-items: center; gap: 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
   margin-bottom: 14px;
 }
 .email-row {
@@ -778,10 +778,7 @@ footer p + p { margin-top: 8px; }
       <div class="spots-count">27 left</div>
     </div>
     <div class="price-cta-wrap">
-      <div class="price-cta-row" id="price-form-row">
-        <input class="price-email-input" type="email" id="price-email" placeholder="Your email address" autocomplete="email">
-        <button class="btn-lime" style="padding:15px 22px;font-size:14px;" onclick="handleSignup('price')">Claim My Free Copy →</button>
-      </div>
+      <div class="ml-embedded" data-form="m1YmLR"></div>
       <div class="price-success" id="price-success">🎉 You're in! Watch your inbox. early access is coming soon.</div>
     </div>
     <div class="price-guarantee-note">Instant digital access · No spam · Unsubscribe anytime</div>
