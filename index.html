@@ -3,883 +3,1599 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Authority Flywheel Playbook — Free Early Access | Kelly Sandrine</title>
-<meta name="description" content="The complete marketing system for service providers who want consistent clients. Built by a graphic designer and agency owner in Kigali. First 50 signups get it free.">
+<title>The Authority Flywheel Playbook — Kelly Sandrine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #080808;
+  --bg-2: #0e0e0e;
+  --bg-3: #141414;
+  --bg-card: #111111;
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --text: #f0f0f0;
+  --text-2: rgba(240,240,240,0.55);
+  --text-3: rgba(240,240,240,0.3);
+  --accent: #e8e8e8;
+  --accent-dim: rgba(232,232,232,0.08);
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,0.1);
+  --green-border: rgba(74,222,128,0.2);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
-:root {
-  --bg:       #0e0f0b;
-  --bg2:      #141510;
-  --bg3:      #1a1c14;
-  --lime:     #c8f135;
-  --lime2:    #d8ff44;
-  --lime-dim: rgba(200,241,53,0.12);
-  --lime-glo: rgba(200,241,53,0.25);
-  --lime-bdr: rgba(200,241,53,0.22);
-  --white:    #f2f2ed;
-  --muted:    #888b7c;
-  --muted2:   #555849;
-  --danger:   #e8453a;
-  --border:   rgba(255,255,255,0.08);
-  --ff:       'Poppins', sans-serif;
-  --radius:   12px;
-  --max:      760px;
-}
-
 body {
   background: var(--bg);
-  color: var(--white);
-  font-family: var(--ff);
-  font-size: 16px;
-  line-height: 1.65;
+  color: var(--text);
+  font-family: 'Geist', -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0; opacity: 0.5;
+.mono { font-family: 'Geist Mono', monospace; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+.container--sm { max-width: 720px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+
+/* ── BADGE / LABEL ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-dim);
+  border: 1px solid var(--border-strong);
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  text-transform: uppercase;
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+
+.section-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
 }
 
-.grid-bg {
-  position: fixed; inset: 0;
-  pointer-events: none; z-index: 0; overflow: hidden;
-}
-.grid-bg svg { width: 100%; height: 100%; opacity: 0.025; }
-
-.orb { position: fixed; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: 0; }
-.orb-1 { width: 600px; height: 600px; background: rgba(200,241,53,0.055); top: -140px; left: -180px; }
-.orb-2 { width: 440px; height: 440px; background: rgba(200,241,53,0.035); bottom: 80px; right: -120px; }
-
-/* URGENCY BAR */
-.urgency-bar {
-  background: var(--lime);
-  text-align: center;
-  padding: 9px 20px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: #0e0f0b;
-  position: sticky; top: 0; z-index: 100;
-  display: flex; justify-content: center; align-items: center;
-  flex-wrap: wrap;
-}
-.urgency-bar .dot { margin: 0 12px; opacity: 0.5; }
-
-/* NAV */
+/* ── NAV ── */
 nav {
-  position: relative; z-index: 10;
-  display: flex; justify-content: center;
-  padding: 26px 24px 20px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
-.logo {
-  font-weight: 700; font-size: 13px;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--white);
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 clamp(20px,5vw,48px);
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
 }
-
-/* LAYOUT */
-.wrap {
-  position: relative; z-index: 1;
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 24px;
+.nav-logo {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
 }
-.wrap-wide {
-  position: relative; z-index: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
+.nav-logo span { color: var(--green); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-link {
+  font-size: 13px;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.15s;
 }
-
-/* HERO */
-.hero {
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 50px;
-}
-.hero-pill {
+.nav-link:hover { color: var(--text); }
+.btn-sm {
+  background: var(--text);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Geist', sans-serif;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
   display: inline-block;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.18);
-  color: var(--white);
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.13em; text-transform: uppercase;
-  padding: 7px 22px; border-radius: 100px;
-  margin-bottom: 32px;
-  animation: fadeUp 0.55s ease both;
 }
-.hero h1 {
-  font-size: clamp(46px, 10vw, 88px);
-  font-weight: 900; line-height: 0.98;
-  letter-spacing: -0.03em; margin-bottom: 24px;
-  animation: fadeUp 0.55s 0.08s ease both;
-}
-.hero h1 .lime { color: var(--lime); }
-.hero-sub {
-  font-size: 15.5px; font-weight: 300; color: var(--muted);
-  max-width: 420px; margin: 0 auto 42px; line-height: 1.65;
-  animation: fadeUp 0.55s 0.16s ease both;
-}
-.hero-sub strong { color: var(--white); font-weight: 600; }
+.btn-sm:hover { opacity: 0.88; }
 
-/* email form */
-.signup-form {
-  animation: fadeUp 0.55s 0.24s ease both;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  margin-bottom: 14px;
-}
-.email-row {
-  display: flex; gap: 8px; width: 100%; max-width: 430px;
-  flex-wrap: wrap; justify-content: center;
-}
-.email-input {
-  flex: 1; min-width: 180px;
-  background: var(--white); border: none; border-radius: 8px;
-  padding: 15px 18px; color: #111;
-  font-family: var(--ff); font-size: 14px; outline: none;
-}
-.email-input::placeholder { color: #999; }
-
-.btn-lime {
-  background: var(--lime); color: #0e0f0b;
-  font-family: var(--ff); font-weight: 700;
-  font-size: 10px; letter-spacing: 0.01em;
-  padding: 15px 26px; border-radius: 8px; border: none;
-  cursor: pointer; white-space: nowrap;
-  transition: background 0.15s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 0 32px var(--lime-glo);
-  text-decoration: none; display: inline-block;
-}
-.btn-lime:hover {
-  background: var(--lime2); transform: translateY(-2px);
-  box-shadow: 0 0 48px rgba(200,241,53,0.38);
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  padding-top: 60px;
+  position: relative;
+  overflow: hidden;
 }
 
-.signup-note {
-  font-size: 12px; color: var(--muted2); font-weight: 400;
-  display: flex; align-items: center; gap: 6px;
+/* Noise texture overlay */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
 }
 
-.waitlist-row {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  margin-top: 6px;
-  animation: fadeUp 0.55s 0.30s ease both;
+/* Grid lines */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: center center;
+  pointer-events: none; z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
 }
-.avatar-stack { display: flex; }
-.avatar-dot {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--lime); border: 2px solid var(--bg);
-  margin-left: -8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.avatar-dot:first-child { margin-left: 0; }
-.avatar-dot svg { width: 14px; height: 14px; fill: #0e0f0b; }
-.waitlist-text { font-size: 13px; color: var(--muted); font-weight: 400; }
-.waitlist-text strong { color: var(--white); font-weight: 700; }
 
-.success-box {
-  display: none;
-  background: var(--lime-dim); border: 1px solid var(--lime-bdr);
-  border-radius: 8px; padding: 14px 22px;
-  font-size: 14px; color: var(--lime); font-weight: 500;
-  text-align: center; width: 100%; max-width: 430px;
-}
-.success-box.show { display: block; }
-
-/* COUNTDOWN */
-.countdown-section {
+.hero-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
   position: relative; z-index: 1;
-  padding-bottom: 72px;
-}
-.countdown-inner {
-  max-width: var(--max); margin: 0 auto; padding: 0 24px;
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
-}
-.cd-tiles { display: flex; align-items: center; gap: 8px; }
-.cd-tile { text-align: center; }
-.cd-num {
-  font-size: clamp(42px, 9vw, 72px); font-weight: 800;
-  color: var(--white); line-height: 1; letter-spacing: -0.02em;
-}
-.cd-label {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted2); margin-top: 6px;
-}
-.cd-sep {
-  font-size: clamp(36px, 7vw, 60px); font-weight: 300;
-  color: var(--muted2); margin-bottom: 18px; line-height: 1;
-}
-.cd-caption {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted2);
+  padding: 80px 0 60px;
 }
 
-/* SHARED */
-.sec-label {
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.20em; text-transform: uppercase;
-  color: var(--lime); margin-bottom: 18px; display: block;
-}
-.divider {
-  width: 48px; height: 2px;
-  background: linear-gradient(90deg, var(--lime), transparent);
-  margin: 0 auto 72px; position: relative; z-index: 1;
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
 }
 
-/* PAIN */
-.pain { padding-bottom: 84px; }
-.pain h2 {
-  font-size: clamp(28px, 5vw, 44px); font-weight: 900;
-  line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 36px;
+.hero-left { display: flex; flex-direction: column; gap: 0; }
+
+.hero-eyebrow { margin-bottom: 28px; }
+
+.hero h1 {
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: var(--text);
+  margin-bottom: 20px;
 }
-.pain-list {
-  list-style: none; display: flex; flex-direction: column; gap: 14px;
-  margin-bottom: 42px;
-}
-.pain-list li {
-  display: flex; align-items: flex-start; gap: 18px;
-  font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.55;
-}
-.pain-dash { color: var(--danger); font-weight: 700; flex-shrink: 0; margin-top: 1px; font-size: 17px; }
-.pain-closer {
-  font-size: 16px; font-weight: 600; color: var(--white);
-  border-left: 3px solid var(--lime); padding-left: 20px; line-height: 1.5;
+.hero h1 .highlight {
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* WHAT'S INSIDE */
-.inside { padding-bottom: 84px; }
-.inside h2 {
-  font-size: clamp(26px, 4.5vw, 40px); font-weight: 900;
-  line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 12px;
+.hero-sub {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 36px;
 }
-.inside-sub {
-  color: var(--muted); font-size: 14.5px; font-weight: 300;
-  margin-bottom: 32px; line-height: 1.6;
-}
-.gears { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-.gear {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 10px; padding: 20px 24px;
-  display: grid; grid-template-columns: 50px 1fr;
-  gap: 18px; align-items: start; transition: border-color 0.2s;
-}
-.gear:hover { border-color: var(--lime-bdr); }
-.gear-tag {
-  background: var(--lime-dim); border: 1px solid var(--lime-bdr);
-  border-radius: 5px; padding: 5px 10px;
-  font-size: 10px; font-weight: 700; color: var(--lime);
-  letter-spacing: 0.06em; text-align: center; white-space: nowrap; margin-top: 2px;
-}
-.gear-title { font-size: 14.5px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.01em; }
-.gear-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.55; }
 
-.extras { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.extra {
-  background: var(--lime-dim); border: 1px solid var(--lime-bdr);
-  border-radius: 8px; padding: 18px 20px;
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
 }
-.extra-title {
-  font-size: 11px; font-weight: 700; color: var(--lime);
-  letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 6px;
-}
-.extra-desc { font-size: 12.5px; font-weight: 300; color: var(--muted); line-height: 1.5; }
 
-/* OUTCOMES */
-.outcomes { padding-bottom: 84px; }
-.outcomes-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 36px 38px;
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Geist', sans-serif;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
 }
-.outcomes-title { font-size: 18px; font-weight: 800; margin-bottom: 26px; letter-spacing: -0.015em; }
-.outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
-.outcome-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.55;
-}
-.outcome-check {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--lime-dim); border: 1px solid var(--lime-bdr);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 1px;
-}
-.outcome-check svg { width: 10px; height: 10px; color: var(--lime); }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 
-/* TESTIMONIALS */
-.testimonials { padding-bottom: 84px; }
-.testimonials .sec-label { text-align: center; }
-.testimonials h2 {
-  font-size: clamp(26px, 4.5vw, 44px); font-weight: 900;
-  letter-spacing: -0.025em; line-height: 1.1;
-  margin-bottom: 10px; text-align: center;
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Geist Mono', monospace;
+  padding: 13px 0;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+  letter-spacing: 0.02em;
 }
-.testimonials-sub {
-  text-align: center; color: var(--muted);
-  font-size: 14.5px; font-weight: 300; margin-bottom: 42px;
-}
-.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-.testi-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 28px 26px;
-  display: flex; flex-direction: column; gap: 20px; transition: border-color 0.2s;
-}
-.testi-card:hover { border-color: var(--lime-bdr); }
-.stars { display: flex; gap: 4px; }
-.star { color: var(--lime); font-size: 14px; }
-.testi-quote { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.7; flex: 1; }
-.testi-quote strong { color: var(--white); font-weight: 700; }
-.testi-author { display: flex; align-items: center; gap: 12px; }
-.testi-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--lime);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 800; color: #0e0f0b; flex-shrink: 0;
-}
-.testi-name { font-size: 13.5px; font-weight: 700; color: var(--white); }
-.testi-role { font-size: 11.5px; color: var(--muted); font-weight: 400; }
+.btn-ghost:hover { color: var(--text); }
 
-/* PRICE */
-.price-section { padding-bottom: 84px; }
-.price-card {
-  background: var(--bg2); border: 1px solid rgba(200,241,53,0.3);
-  border-radius: 16px; padding: 52px 44px;
-  text-align: center; position: relative; overflow: hidden;
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
 }
-.price-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--lime), var(--lime2));
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-num {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
-.price-card::after {
-  content: ''; position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%);
-  width: 500px; height: 250px;
-  background: radial-gradient(ellipse, rgba(200,241,53,0.10) 0%, transparent 70%);
+.stat-label {
+  font-size: 11px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Book display */
+.hero-right {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ambient glow behind book */
+.book-glow {
+  position: absolute;
+  width: 300px; height: 350px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
   pointer-events: none;
 }
-.price-badge {
-  display: inline-block; background: var(--bg3);
-  border: 1px solid rgba(255,255,255,0.12); color: var(--white);
-  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 7px 20px; border-radius: 100px; margin-bottom: 24px;
-}
-.price-title { font-size: 26px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.015em; }
-.price-desc { color: var(--muted); font-size: 14px; font-weight: 300; margin-bottom: 30px; line-height: 1.5; }
-.price-row {
-  display: flex; justify-content: center; align-items: baseline;
-  gap: 16px; margin-bottom: 8px;
-}
-.price-free {
-  font-size: clamp(56px, 12vw, 80px); font-weight: 900;
-  color: var(--lime); line-height: 1; letter-spacing: -0.03em;
-}
-.price-after { font-size: 14.5px; color: var(--muted); font-weight: 300; }
-.price-after s { color: var(--muted2); }
-.price-note { font-size: 12px; color: var(--muted2); margin-bottom: 32px; }
 
-.spots-bar {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 10px; padding: 16px 20px;
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 16px; margin-bottom: 28px; flex-wrap: wrap;
+.book-img {
+  width: 280px;
+  position: relative; z-index: 2;
+  border-radius: 4px;
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+  animation: float 7s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-16px) rotate(-1deg); }
+}
+
+.price-bubble {
+  position: absolute;
+  bottom: -8px;
+  right: 20px;
+  z-index: 10;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 100px;
+}
+.price-was {
+  font-size: 12px;
+  color: var(--text-3);
+  text-decoration: line-through;
+  font-family: 'Geist Mono', monospace;
+  display: block;
+  margin-bottom: 2px;
+}
+.price-now {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  display: block;
+  line-height: 1;
+}
+.price-tag {
+  font-size: 10px;
+  color: var(--green);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+
+/* ── TICKER / PROOF BAR ── */
+.ticker {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+  overflow: hidden;
+  padding: 14px 0;
   position: relative; z-index: 1;
 }
-.spots-left { flex: 1; }
-.spots-lbl { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-.spots-track {
-  width: 100%; height: 4px;
-  background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden;
+.ticker-track {
+  display: flex;
+  gap: 56px;
+  white-space: nowrap;
+  animation: ticker 28s linear infinite;
 }
-.spots-fill {
-  height: 100%; width: 46%; background: var(--lime);
-  border-radius: 2px; box-shadow: 0 0 8px var(--lime-glo);
+.ticker-track span {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  flex-shrink: 0;
 }
-.spots-count { font-size: 14px; font-weight: 800; color: var(--danger); white-space: nowrap; }
+.ticker-track .sep { color: var(--green); font-size: 8px; }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
-.price-cta-wrap {
-  position: relative; z-index: 1;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
+/* ── SECTION BASE ── */
+section { padding: clamp(80px,10vw,120px) 0; }
+
+/* Section divider line */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── PROBLEM ── */
+.problem { background: var(--bg-2); }
+
+.problem-headline {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.problem-headline em {
+  font-style: normal;
+  color: var(--text-2);
+}
+
+.problem-sub {
+  font-size: 15px;
+  color: var(--text-2);
+  max-width: 520px;
+  margin-bottom: 56px;
+  line-height: 1.7;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 64px;
+}
+.pain-item {
+  background: var(--bg-card);
+  padding: 32px 36px;
+  position: relative;
+  transition: background 0.2s;
+}
+.pain-item:hover { background: #161616; }
+.pain-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  display: block;
+}
+.pain-item p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.problem-quote {
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--green);
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 36px 40px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.problem-quote blockquote {
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.problem-quote cite {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* ── SYSTEM / GEARS ── */
+.system { background: var(--bg); }
+
+.system-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+.system-title {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  max-width: 560px;
+}
+.system-desc {
+  font-size: 15px;
+  color: var(--text-2);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+.gears-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.gear-card {
+  background: var(--bg-card);
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+.gear-card:hover { background: #141414; }
+.gear-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--green) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.gear-card:hover::before { opacity: 1; }
+.gear-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.gear-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.gear-tagline {
+  font-size: 13px;
+  color: var(--text-2);
   margin-bottom: 18px;
+  font-style: italic;
+  font-family: 'Geist', sans-serif;
 }
-.price-cta-row {
-  display: flex; gap: 8px; width: 100%; max-width: 420px;
-  flex-wrap: wrap; justify-content: center;
+.gear-desc {
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.7;
+  margin-bottom: 24px;
 }
-.price-email-input {
-  flex: 1; min-width: 160px; background: var(--bg3);
-  border: 1px solid var(--border); border-radius: 8px;
-  padding: 15px 16px; color: var(--white);
-  font-family: var(--ff); font-size: 14px; outline: none; transition: border-color 0.2s;
+.gear-items {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
 }
-.price-email-input:focus { border-color: var(--lime-bdr); }
-.price-email-input::placeholder { color: var(--muted2); }
-.price-success {
-  display: none; background: var(--lime-dim); border: 1px solid var(--lime-bdr);
-  border-radius: 8px; padding: 14px 20px;
-  font-size: 14px; color: var(--lime); font-weight: 500;
-  width: 100%; max-width: 420px;
+.gear-items li {
+  font-size: 13px;
+  color: var(--text-2);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
 }
-.price-success.show { display: block; }
-.price-guarantee-note { font-size: 11.5px; color: var(--muted2); font-weight: 400; position: relative; z-index: 1; }
+.gear-items li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--green);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  top: 1px;
+}
+.gear-bg-num {
+  position: absolute;
+  bottom: -10px; right: 16px;
+  font-size: 100px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.02);
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.06em;
+  font-family: 'Geist', sans-serif;
+}
 
-/* FAQ */
-.faq { padding-bottom: 84px; }
-.faq h2 {
-  font-size: clamp(22px, 4vw, 34px); font-weight: 900;
-  letter-spacing: -0.022em; margin-bottom: 32px;
+/* Bonuses */
+.bonus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
-.faq-list { display: flex; flex-direction: column; gap: 4px; }
-.faq-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-.faq-q {
-  width: 100%; background: var(--bg2); color: var(--white);
-  font-family: var(--ff); font-size: 14px; font-weight: 500;
-  padding: 18px 22px; text-align: left; cursor: pointer; border: none;
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 16px; transition: background 0.2s;
+.bonus-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
 }
-.faq-q:hover { background: var(--bg3); }
-.faq-icon {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--lime-dim); border: 1px solid var(--lime-bdr);
+.bonus-icon-wrap {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: var(--lime); font-size: 18px; line-height: 1;
-  transition: transform 0.25s, background 0.2s;
+  font-size: 18px;
+  margin-bottom: 16px;
 }
-.faq-q.open .faq-icon { transform: rotate(45deg); background: var(--lime); color: #0e0f0b; }
-.faq-a {
-  display: none; background: var(--bg2);
-  padding: 0 22px 18px;
-  font-size: 13.5px; font-weight: 300; color: var(--muted); line-height: 1.7;
+.bonus-card h4 {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.bonus-card p {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+/* ── RESULTS ── */
+.results { background: var(--bg-2); }
+
+.results-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+.results-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.results-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 360px;
+  margin-left: auto;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.timeline-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: background 0.15s;
+}
+.timeline-row:last-child { border-bottom: none; }
+.timeline-row:hover { background: #141414; }
+.timeline-month {
+  padding: 28px 24px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.timeline-body { padding: 28px 32px; }
+.timeline-stat {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.timeline-detail {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.results-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 56px;
+  text-align: center;
+}
+.results-cta h3 {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.results-cta p {
+  font-size: 14px;
+  color: var(--text-2);
+  max-width: 480px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+/* ── AUTHOR ── */
+.author { background: var(--bg); }
+
+.author-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.author-visual {
+  position: sticky;
+  top: 80px;
+}
+.author-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.author-img-area {
+  height: 300px;
+  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.author-img-area::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.author-initials {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: rgba(255,255,255,0.15);
+  position: relative; z-index: 1;
+}
+.author-name-badge {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+.author-card-footer {
+  padding: 20px 24px;
+}
+.author-card-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.author-card-role {
+  font-size: 12px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.06em;
+}
+
+.author-content {}
+.author-content h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.author-content p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.credentials {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cred-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.cred-icon {
+  width: 20px; height: 20px;
+  border-radius: 4px;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials { background: var(--bg-2); }
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.testi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  display: flex; flex-direction: column;
+  transition: border-color 0.2s;
+}
+.testi-card:hover { border-color: var(--border-strong); }
+.testi-stars {
+  display: flex; gap: 3px;
+  margin-bottom: 16px;
+}
+.testi-stars span { color: var(--green); font-size: 12px; }
+.testi-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.75;
+  flex: 1;
+  margin-bottom: 24px;
+}
+.testi-author {
+  display: flex; align-items: center; gap: 10px;
+  padding-top: 20px;
   border-top: 1px solid var(--border);
 }
-.faq-a.open { display: block; padding-top: 16px; }
+.testi-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  flex-shrink: 0;
+}
+.testi-name {
+  font-size: 13px;
+  font-weight: 500;
+  display: block;
+}
+.testi-role {
+  font-size: 11px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', monospace;
+  display: block;
+  margin-top: 1px;
+}
 
-/* FINAL CTA */
-.final-cta { padding-bottom: 84px; text-align: center; position: relative; }
-.final-glow {
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 700px; height: 280px;
-  background: radial-gradient(ellipse, rgba(200,241,53,0.12) 0%, transparent 68%);
-  pointer-events: none; filter: blur(6px);
+/* ── PRICING ── */
+.pricing { background: var(--bg); }
+
+.pricing-wrapper {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.pricing-left {}
+.pricing-left h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin-bottom: 16px;
+}
+.pricing-left p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.include-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.include-list li {
+  font-size: 13px;
+  color: var(--text-2);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.include-list li::before {
+  content: '✓';
+  position: absolute; left: 0;
+  color: var(--green);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+.pricing-card-top {
+  padding: 36px 36px 32px;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-card-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.price-display {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.price-dollar { font-size: 28px; font-weight: 500; color: var(--text-2); }
+.price-main { font-size: 72px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; }
+.price-original {
+  font-size: 14px;
+  color: var(--text-3);
+  text-decoration: line-through;
+  font-family: 'Geist Mono', monospace;
+}
+.price-note {
+  font-size: 11px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.06em;
+}
+
+.pricing-card-body { padding: 28px 36px 32px; }
+.pricing-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Geist', sans-serif;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.pricing-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+.pricing-guarantee {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+/* ── FAQ ── */
+.faq { background: var(--bg-2); }
+
+.faq-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.faq-title {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+.faq-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 340px;
+  margin-left: auto;
+}
+
+.faq-list {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  padding: 22px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: color 0.15s;
+  user-select: none;
+}
+.faq-q:hover { color: var(--text-2); }
+.faq-chevron {
+  font-size: 16px;
+  color: var(--text-3);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-a-inner {
+  padding: 0 28px 22px;
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.75;
+}
+.faq-item.open .faq-a { max-height: 200px; }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: var(--bg);
+  padding: clamp(80px,10vw,140px) 0;
+}
+.final-cta-inner {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-card);
+  padding: clamp(48px, 6vw, 80px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta-inner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,222,128,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta-inner::after {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
 }
 .final-cta h2 {
-  font-size: clamp(28px, 6vw, 56px); font-weight: 900;
-  letter-spacing: -0.027em; line-height: 1.07;
-  margin-bottom: 20px; position: relative; z-index: 1;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  position: relative;
 }
-.final-cta h2 .lime { color: var(--lime); }
 .final-cta p {
-  color: var(--muted); font-size: 16px; font-weight: 300;
-  max-width: 420px; margin: 0 auto 38px; line-height: 1.65;
-  position: relative; z-index: 1;
+  font-size: 15px;
+  color: var(--text-2);
+  max-width: 440px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+  position: relative;
 }
-.final-btn-wrap {
-  position: relative; z-index: 1;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
+.final-cta-note {
+  margin-top: 20px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+  position: relative;
 }
-.final-note { font-size: 11.5px; color: var(--muted2); font-weight: 400; }
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 34px 24px; text-align: center;
-  font-size: 12px; font-weight: 400; color: var(--muted2);
-  position: relative; z-index: 1;
+  background: var(--bg);
+  padding: 40px 0;
 }
-footer p + p { margin-top: 8px; }
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-logo {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.footer-logo span { color: var(--green); }
+.footer-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+}
 
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.reveal {
-  opacity: 0; transform: translateY(24px);
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up.d1 { transition-delay: 0.1s; }
+.fade-up.d2 { transition-delay: 0.2s; }
+.fade-up.d3 { transition-delay: 0.3s; }
 
-/* MOBILE */
-@media (max-width: 680px) {
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-right { order: -1; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-cta-row { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .results-header { grid-template-columns: 1fr; }
+  .results-sub { margin-left: 0; }
+  .pricing-wrapper { grid-template-columns: 1fr; }
+  .faq-header { grid-template-columns: 1fr; }
+  .faq-sub { margin-left: 0; }
+  .author-grid { grid-template-columns: 1fr; }
+  .author-visual { position: static; }
+  .gears-grid { grid-template-columns: 1fr; }
   .testi-grid { grid-template-columns: 1fr; }
-  .outcomes-grid { grid-template-columns: 1fr; }
-  .extras { grid-template-columns: 1fr; }
-  .gear { grid-template-columns: 1fr; gap: 10px; }
-  .price-card { padding: 36px 22px; }
-  .price-free { font-size: 52px; }
-  .spots-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .outcomes-card { padding: 26px 22px; }
-  .hero h1 { font-size: clamp(40px, 12vw, 72px); }
+  .bonus-grid { grid-template-columns: 1fr 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
 }
-
+@media (max-width: 600px) {
+  .bonus-grid { grid-template-columns: 1fr; }
+  .timeline-row { grid-template-columns: 80px 1fr; }
+  .results-cta { padding: 32px 24px; }
+}
 </style>
-   <script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2259601');
-</script>
 </head>
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="grid-bg">
-  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0L0 0 0 60" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs>
-    <rect width="1440" height="900" fill="url(#grid)"/>
-    <line x1="0" y1="900" x2="860" y2="0" stroke="white" stroke-width="0.9" opacity="0.5"/>
-    <line x1="340" y1="900" x2="1200" y2="0" stroke="white" stroke-width="0.5" opacity="0.25"/>
-    <line x1="1440" y1="780" x2="580" y2="0" stroke="white" stroke-width="0.5" opacity="0.25"/>
-  </svg>
-</div>
-
-<!-- URGENCY BAR -->
-<div class="urgency-bar">
-  Free for the first 50 — 27 spots remaining
-  <span class="dot">·</span>
-  Launches Monday, May 4th
-  <span class="dot">·</span>
-  $7 after launch
-</div>
-
-<!-- ══════════════════════════════════════
-  1. HERO  (section_1.JPG)
-══════════════════════════════════════ -->
-<section class="wrap hero">
-  <div class="hero-pill">The Authority Flywheel Playbook</div>
-  <h1>Stop Chasing.<br><span class="lime">Start Attracting.</span></h1>
-  <p class="hero-sub">The complete marketing system for service providers who want <strong>consistent clients,</strong> without cold DM burnout or praying every month.</p>
-
-  <div class="signup-form">
-    <div class="ml-embedded" data-form="m1YmLR"></div>
-    <div class="success-box" id="hero-success">🎉 You're on the list! We'll email you when early access opens. Check your inbox.</div>
-    <div class="signup-note">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="10" height="8" rx="1.5"/><path d="M4 3V2.5a2 2 0 014 0V3"/></svg>
-      No spam, ever. Unsubscribe anytime. Your data stays private.
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">The <span>Authority</span> Flywheel™</a>
+    <div class="nav-actions">
+      <a href="https://www.kaazi.me/digital-product/eb53f2cd-5b98-49ef-a5fb-ecf37410815a" class="btn-sm">Get the Playbook →</a>
     </div>
   </div>
+</nav>
 
-  <div class="waitlist-row">
-    <div class="avatar-stack">
-      <div class="avatar-dot"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="2.5" fill="#0e0f0b"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5" fill="#0e0f0b"/></svg></div>
-      <div class="avatar-dot"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="2.5" fill="#0e0f0b"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5" fill="#0e0f0b"/></svg></div>
-      <div class="avatar-dot"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="2.5" fill="#0e0f0b"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5" fill="#0e0f0b"/></svg></div>
-      <div class="avatar-dot"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="2.5" fill="#0e0f0b"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5" fill="#0e0f0b"/></svg></div>
-      <div class="avatar-dot"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="2.5" fill="#0e0f0b"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5" fill="#0e0f0b"/></svg></div>
-    </div>
-    <div class="waitlist-text"><strong>20+ founders &amp; creators</strong> already on the waitlist</div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════
-  2. COUNTDOWN  (section_2.JPG)
-══════════════════════════════════════ -->
-<div class="countdown-section reveal">
-  <div class="countdown-inner">
-    <div class="cd-tiles">
-      <div class="cd-tile"><div class="cd-num" id="cd-days">06</div><div class="cd-label">Days</div></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-tile"><div class="cd-num" id="cd-hours">23</div><div class="cd-label">Hours</div></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-tile"><div class="cd-num" id="cd-mins">56</div><div class="cd-label">Mins</div></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-tile"><div class="cd-num" id="cd-secs">30</div><div class="cd-label">Secs</div></div>
-    </div>
-    <div class="cd-caption">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="1" y="2" width="12" height="11" rx="2"/><path d="M1 5h12M5 1v2M9 1v2"/></svg>
-      Left until early access closes
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-  3. PAIN  (section_3.JPG)
-══════════════════════════════════════ -->
-<section class="wrap pain reveal">
-  <span class="sec-label">Sound familiar?</span>
-  <h2>You're working hard.<br>The clients still aren't consistent.</h2>
-  <ul class="pain-list">
-    <li><span class="pain-dash">—</span> You post when you remember to, but it's not pulling anyone in</li>
-    <li><span class="pain-dash">—</span> Cold DMs go mostly unanswered</li>
-    <li><span class="pain-dash">—</span> You land clients occasionally, but can't explain why or repeat it</li>
-    <li><span class="pain-dash">—</span> Every month feels like starting from zero</li>
-    <li><span class="pain-dash">—</span> You're talented. You're showing up. And it's still not enough.</li>
-  </ul>
-  <p class="pain-closer">This isn't a talent problem. It's a systems problem, and it has a fix.</p>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════
-  4. WHAT'S INSIDE  (what_s_inside.JPG)
-══════════════════════════════════════ -->
-<section class="wrap inside reveal">
-  <span class="sec-label">What's inside</span>
-  <h2>Four gears. One system.<br>Built to compound.</h2>
-  <p class="inside-sub">Every section produces a real output. a live asset in your business.</p>
-
-  <div class="gears">
-    <div class="gear">
-      <div class="gear-tag">⚙ 01</div>
-      <div>
-        <div class="gear-title">Attract — Stop chasing. Start being found.</div>
-        <div class="gear-desc">Dream Client Avatar, magnetic content system, lead magnet formula, and AI-powered attraction engine that runs on one hour a week.</div>
-      </div>
-    </div>
-    <div class="gear">
-      <div class="gear-tag">⚙ 02</div>
-      <div>
-        <div class="gear-title">Engage — Build the trust that sells.</div>
-        <div class="gear-desc">5-email nurture sequence, community authority strategy, and the Before-Bridge-After storytelling framework for captions, emails, and sales calls.</div>
-      </div>
-    </div>
-    <div class="gear">
-      <div class="gear-tag">⚙ 03</div>
-      <div>
-        <div class="gear-title">Convert — Make saying no feel costly.</div>
-        <div class="gear-desc">Grand Slam Offer framework, full offer stack from free to premium, 5-step consultative sales script, and automated conversion assets.</div>
-      </div>
-    </div>
-    <div class="gear">
-      <div class="gear-tag">⚙ 04</div>
-      <div>
-        <div class="gear-title">Ascend — Build the machine that scales.</div>
-        <div class="gear-desc">Value ladder, 3-part referral system, monthly retention reports, and how to productize your services so you can hand them off.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="extras">
-    <div class="extra">
-      <div class="extra-title">AI &amp; Automation Stack</div>
-      <div class="extra-desc">The exact tools powering every gear — Claude, ManyChat, ConvertKit, Zapier, and more</div>
-    </div>
-    <div class="extra">
-      <div class="extra-title">30-Day Launch Plan</div>
-      <div class="extra-desc">Day-by-day from zero system to first paying client or retainer conversation</div>
-    </div>
-    <div class="extra">
-      <div class="extra-title">Master Prompt Library</div>
-      <div class="extra-desc">AI prompts for content, offers, sales scripts, objection handling, and client reports</div>
-    </div>
-    <div class="extra">
-      <div class="extra-title">4 Gear Worksheets</div>
-      <div class="extra-desc">Fill-in frameworks that build your entire flywheel before you finish the playbook</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════
-  5. OUTCOMES CARD  (section_4.JPG)
-══════════════════════════════════════ -->
-<section class="wrap outcomes reveal">
-  <div class="outcomes-card">
-    <div class="outcomes-title">You'll walk away knowing how to…</div>
-    <div class="outcomes-grid">
-      <div class="outcome-item">
-        <span class="outcome-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        Define a niche POV that attracts your ideal clients on autopilot
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        Build a content system that grows in value the longer you run it
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        Leverage distribution channels that compound reach over time
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        Turn casual readers into warm inbound leads without cold outreach
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        Use social proof and partnerships to shortcut trust-building by months
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        Measure what actually matters and iterate your flywheel in 30 days
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <div class="badge">
+              <span class="badge-dot"></span>
+              A four-gear system by Kelly Sandrine
+            </div>
+          </div>
+          <h1>Stop Chasing.<br><span class="highlight">Start Compounding.</span></h1>
+          <p class="hero-sub">The exact four-gear system Kelly Sandrine used to go from posting regularly and zero clients to a running agency, without cold outreach, paid ads, or guessing.</p>
+          <div class="hero-cta-row">
+            <a href="https://www.kaazi.me/digital-product/eb53f2cd-5b98-49ef-a5fb-ecf37410815a" class="btn-primary">Get the Playbook →</a>
+            <a href="#system" class="btn-ghost">See the System ↓</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-num">4</span>
+              <span class="stat-label">Interlocking gears</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">120+</span>
+              <span class="stat-label">Downloads, zero ads</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">$7</span>
+              <span class="stat-label">Launch price today</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="book-wrapper">
+            <div class="book-glow"></div>
+            <img src="AF_cover.jpg" alt="The Authority Flywheel Playbook by Kelly Sandrine" class="book-img"
+              onerror="this.onerror=null; this.src='AF_cover.png'; this.onerror=function(){ this.style.display='none'; document.getElementById('book-fallback').style.display='flex'; }">
+            <div id="book-fallback" style="display:none;width:280px;height:380px;background:linear-gradient(160deg,#1a1a1a,#0e0e0e);border:1px solid rgba(255,255,255,0.08);border-radius:4px;flex-direction:column;align-items:center;justify-content:flex-end;padding:32px;gap:8px;animation:float 7s ease-in-out infinite;transform:rotate(-1deg);">
+              <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.15em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:8px;">Kelly Sandrine</div>
+              <div style="font-size:28px;font-weight:700;letter-spacing:-0.04em;color:white;text-align:left;width:100%;line-height:1.15;">The<br>Authority<br>Flywheel</div>
+            </div>
+            <div class="price-bubble">
+              <span class="price-was">$17</span>
+              <span class="price-now">$7</span>
+              <span class="price-tag">Launch Price</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <span class="section-label">The Real Problem</span>
+    <p class="problem-headline fade-up">You're not failing because you lack talent.<br><em>You're failing because you're missing a system.</em></p>
+    <p class="problem-sub fade-up">Most service providers work harder and harder and wonder why nothing compounds. Here's the actual diagnosis.</p>
+    <div class="pain-grid fade-up">
+      <div class="pain-item">
+        <span class="pain-num">// 01</span>
+        <p>You post consistently but get no inbound leads, every client is a scramble from scratch.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-num">// 02</span>
+        <p>You're great at your craft but can't communicate your value in a way that makes people pay for it.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-num">// 03</span>
+        <p>You rely on referrals and hope, never knowing when the next client will show up, if ever.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-num">// 04</span>
+        <p>Customers buy once and disappear. No escalation, no recurring revenue, no loyalty.</p>
+      </div>
+    </div>
+    <div class="problem-quote fade-up">
+      <blockquote>"Working harder does not make you successful. It makes you tired. What makes you successful is a system that works while you rest."</blockquote>
+      <cite>— Kelly Sandrine · The Authority Flywheel Playbook</cite>
+    </div>
+  </div>
+</section>
 
-<!-- ══════════════════════════════════════
-  6. TESTIMONIALS  (testimonials.JPG)
-══════════════════════════════════════ -->
-<div class="wrap-wide">
-  <section class="testimonials reveal">
-    <span class="sec-label">Early readers say</span>
-    <h2>Real results from the<br>Authority Flywheel system</h2>
-    <p class="testimonials-sub">Here's what beta readers and pilot cohort members had to say.</p>
+<!-- SYSTEM -->
+<section class="system" id="system">
+  <div class="container">
+    <div class="system-header">
+      <span class="section-label">The System</span>
+      <h2 class="system-title fade-up">Four Gears.<br>One Flywheel.<br>Infinite Momentum.</h2>
+      <p class="system-desc fade-up">Not theory. Not another tactics dump. The exact four-gear system built and tested in a real business, from scratch, in Kigali, Rwanda.</p>
+    </div>
+
+    <div class="gears-grid">
+      <div class="gear-card fade-up">
+        <div class="gear-bg-num">01</div>
+        <div class="gear-num">⚙ Gear 01 · Attract</div>
+        <h3>Stop chasing.<br>Start being found.</h3>
+        <p class="gear-tagline">Build a magnetic content system</p>
+        <p class="gear-desc">Pull the right people to you, without cold DMs, endless posting, or paid advertising.</p>
+        <ul class="gear-items">
+          <li>Dream Client Avatar framework (5-Point AI method)</li>
+          <li>3-type content matrix: Authority, Empathy, Value</li>
+          <li>Lead magnet formula that generates real downloads</li>
+          <li>AI-powered content repurposing (1hr → 2 weeks)</li>
+          <li>SEO + platform optimization for passive lead flow</li>
+        </ul>
+      </div>
+      <div class="gear-card fade-up d1">
+        <div class="gear-bg-num">02</div>
+        <div class="gear-num">⚙ Gear 02 · Engage</div>
+        <h3>Build the trust<br>that sells.</h3>
+        <p class="gear-tagline">Turn warm audiences into believers</p>
+        <p class="gear-desc">Build authority so your ideal client can't help but follow, trust, and want more from you.</p>
+        <ul class="gear-items">
+          <li>5-email nurture sequence that converts on autopilot</li>
+          <li>Community presence strategy for your niche</li>
+          <li>Brand story framework that builds emotional connection</li>
+          <li>The 3-2-1 posting ratio (the math of trust-building)</li>
+        </ul>
+      </div>
+      <div class="gear-card fade-up d2">
+        <div class="gear-bg-num">03</div>
+        <div class="gear-num">⚙ Gear 03 · Convert</div>
+        <h3>The offer that<br>closes itself.</h3>
+        <p class="gear-tagline">Create offers so clear, saying no feels foolish</p>
+        <p class="gear-desc">Craft compelling offers and automate the conversion process entirely.</p>
+        <ul class="gear-items">
+          <li>Grand Slam Offer architecture (Hormozi-inspired)</li>
+          <li>Consultative sales script that never feels pushy</li>
+          <li>Offer stack that increases perceived value</li>
+          <li>Automated conversion assets: proposals, DMs, follow-ups</li>
+        </ul>
+      </div>
+      <div class="gear-card fade-up d3">
+        <div class="gear-bg-num">04</div>
+        <div class="gear-num">⚙ Gear 04 · Ascend</div>
+        <h3>Build the machine<br>that scales.</h3>
+        <p class="gear-tagline">Move buyers from first purchase to premium</p>
+        <p class="gear-desc">A value ladder that works while you sleep, compounding clients into recurring revenue.</p>
+        <ul class="gear-items">
+          <li>Value ladder design from entry offer to premium</li>
+          <li>Referral system that generates qualified leads</li>
+          <li>Upsell framework for existing clients</li>
+          <li>Leverage strategy to scale without trading more time</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="section-label" style="text-align:center;display:block;margin-bottom:20px;">Also Included</span>
+    <div class="bonus-grid fade-up">
+      <div class="bonus-card">
+        <div class="bonus-icon-wrap">🤖</div>
+        <h4>AI & Automation Stack</h4>
+        <p>The full tool stack and AI prompt library to run every gear on near-autopilot.</p>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-icon-wrap">📅</div>
+        <h4>30-Day Launch Plan</h4>
+        <p>Day-by-day action plan from zero system to first paying client. No guessing, no overwhelm.</p>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-icon-wrap">📋</div>
+        <h4>Four Worksheets</h4>
+        <p>One per gear. Fill them in and you'll have a fully operational Flywheel by the last page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="container">
+    <div class="results-header">
+      <div>
+        <span class="section-label">Real Numbers. Real Business.</span>
+        <h2 class="results-title fade-up">What the System<br>Actually Produced</h2>
+      </div>
+      <p class="results-sub fade-up">Starting from zero. In Kigali, Rwanda. No paid ads. No audience. No head start.</p>
+    </div>
+    <div class="timeline fade-up">
+      <div class="timeline-row">
+        <div class="timeline-month">Month 1</div>
+        <div class="timeline-body">
+          <div class="timeline-stat">3 Inbound Leads</div>
+          <div class="timeline-detail">From content alone. Zero cold DMs. First retainer client signed at 180,000 RWF/month.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-month">Month 3</div>
+        <div class="timeline-body">
+          <div class="timeline-stat">4 Retainer Clients · $435 MRR</div>
+          <div class="timeline-detail">First month without worrying about where the next client was coming from. Flywheel spinning.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-month">Month 6</div>
+        <div class="timeline-body">
+          <div class="timeline-stat">Agency Launched</div>
+          <div class="timeline-detail">First part-time team member hired. Lead magnet had 120+ downloads,still zero paid ads.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-month">Month 12</div>
+        <div class="timeline-body">
+          <div class="timeline-stat">Second Revenue Stream</div>
+          <div class="timeline-detail">Apparel brand launched, funded entirely by agency income. Flywheel still running on its own momentum.</div>
+        </div>
+      </div>
+    </div>
+    <div class="results-cta fade-up">
+      <h3>Your numbers will be your own.<br>The mechanism is the same.</h3>
+      <p>Not projections or theory. A documented, repeatable system, built and tested in a real market, by a real person, starting from scratch.</p>
+      <a href="https://www.kaazi.me/digital-product/eb53f2cd-5b98-49ef-a5fb-ecf37410815a" class="btn-primary" style="font-size:14px;padding:14px 28px;">Start the Flywheel →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author">
+  <div class="container">
+    <div class="author-grid">
+      <div class="author-visual fade-up">
+        <div class="author-card">
+          <div class="author-img-area">
+            <div class="author-initials">KS</div>
+            <div class="author-name-badge">Kelly Sandrine</div>
+          </div>
+          <div class="author-card-footer">
+            <div class="author-card-name">Kelly Sandrine</div>
+            <div class="author-card-role">Marketing Strategist · Agency Founder · Kigali</div>
+          </div>
+        </div>
+      </div>
+      <div class="author-content fade-up d1">
+        <span class="section-label">About the Author</span>
+        <h2>Built by Someone Who Actually Did It</h2>
+        <p>A few years ago, Kelly Sandrine was doing everything "right." Freelancing on Fiverr beside a 9-to-5. Running print-on-demand. Offering social media management, admin gigs, web design, anything that came along.</p>
+        <p>She was posting. She was pitching. She was begging. And she had nothing to show for it except burnout, an empty bank account, and zero clients who actually valued what she did.</p>
+        <p>The problem wasn't her skills. The problem was no system. The Authority Flywheel is the exact system she built, tested, and refined, first as a freelancer, then as a marketing agency owner, now as a brand founder.</p>
+        <div class="credentials">
+          <div class="cred-item">
+            <div class="cred-icon">⚙</div>
+            Marketing Strategist & Graphic Designer
+          </div>
+          <div class="cred-item">
+            <div class="cred-icon">⚙</div>
+            Founder · Marketing Agency, Kigali Rwanda
+          </div>
+          <div class="cred-item">
+            <div class="cred-icon">⚙</div>
+            Creator · The Authority Flywheel™ Framework
+          </div>
+          <div class="cred-item">
+            <div class="cred-icon">⚙</div>
+            Owner . Apprel Brand, Kigali Rwanda
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <span class="section-label">What People Are Saying</span>
+        <h2 class="fade-up" style="font-size:clamp(26px,3vw,38px);font-weight:600;letter-spacing:-0.03em;">The Flywheel at Work</h2>
+      </div>
+    </div>
     <div class="testi-grid">
-      <div class="testi-card">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <div class="testi-quote">Within 6 weeks of applying the positioning module, I had <strong>three inbound leads</strong> reach out directly, without a single cold DM. The flywheel framework finally made content feel strategic, not random.</div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-text">Before this playbook, I was stuck in the endless hustle of cold pitching. The Attract gear alone changed how I think about content. Within 6 weeks I had my first ever inbound lead.</p>
         <div class="testi-author">
-          <div class="testi-avatar">M</div>
-          <div><div class="testi-name">Marcus T.</div><div class="testi-role">B2B Consultant, Kigali</div></div>
+          <div class="testi-avatar">A</div>
+          <div>
+            <span class="testi-name">Emelyne R.</span>
+            <span class="testi-role">Content Creator · Kigali</span>
+          </div>
         </div>
       </div>
-      <div class="testi-card">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <div class="testi-quote">I've bought plenty of "content strategy" courses. This is the first one that actually explains the <strong>mechanics of why</strong> authority compounds and gives you a repeatable system to run it.</div>
-        <div class="testi-author">
-          <div class="testi-avatar">C</div>
-          <div><div class="testi-name">Carine A.</div><div class="testi-role">Content Creator, Kigali</div></div>
+      <div class="testi-card fade-up d1">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
-      </div>
-      <div class="testi-card">
-        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <div class="testi-quote">The content architecture module alone was worth it. I went from posting randomly to running a proper <strong>pillar system that drove 4× more profile visits</strong> in the first month.</div>
+        <p class="testi-text">Kelly doesn't give you fluff. The 30-Day Launch Plan is insane, I had something to do every single day and knew exactly why I was doing it. Month 2 I signed two retainers.</p>
         <div class="testi-author">
           <div class="testi-avatar">D</div>
-          <div><div class="testi-name">David K.</div><div class="testi-role">Personal Trainer, Nairobi</div></div>
+          <div>
+            <span class="testi-name">David M.</span>
+            <span class="testi-role">Social Media Consultant · Lagos</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-up d2">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-text">The Grand Slam Offer section rewired how I package my services. I went from charging per-hour to a retainer model, and my first client at the new price didn't even negotiate.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">F</div>
+          <div>
+            <span class="testi-name">Fabrice K.</span>
+            <span class="testi-role">Personal Trainer · Kigali</span>
+          </div>
         </div>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════
-  7. PRICE / CLAIM  (section_5.JPG)
-══════════════════════════════════════ -->
-<section class="wrap price-section reveal" id="claim">
-  <div class="price-card">
-    <div class="price-badge">Early Access — Limited Spots</div>
-    <div class="price-title">The Authority Flywheel Playbook</div>
-    <div class="price-desc">Complete system · 4 gear worksheets · AI prompt library · 30-day plan</div>
-    <div class="price-row">
-      <div class="price-free">FREE</div>
-      <div class="price-after">then <s>$7</s> after launch</div>
-    </div>
-    <div class="price-note">≈ 15,000 RWF after May 4th · Early access is completely free</div>
-    <div class="spots-bar">
-      <div class="spots-left">
-        <div class="spots-lbl">Free early access spots remaining</div>
-        <div class="spots-track"><div class="spots-fill"></div></div>
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <span class="section-label" style="margin-bottom:24px;">Get the Playbook</span>
+    <div class="pricing-wrapper">
+      <div class="pricing-left fade-up">
+        <h2>Everything you need.<br>One simple investment.</h2>
+        <p>No monthly fees. No upsells. No fluff. One purchase, instant access, yours forever.</p>
+        <ul class="include-list">
+          <li>Complete Flywheel System, all four gears</li>
+          <li>Four fill-in-the-blank gear worksheets</li>
+          <li>Full AI & Automation Tool Stack + prompts</li>
+          <li>30-Day day-by-day Launch Plan</li>
+          <li>Dream Client Avatar builder with AI prompt</li>
+          <li>Grand Slam Offer architecture + sales script</li>
+          <li>Email nurture sequence template (5 emails)</li>
+          <li>Referral system + value ladder design framework</li>
+        </ul>
       </div>
-      <div class="spots-count">27 left</div>
-    </div>
-    <div class="price-cta-wrap">
-      <div class="ml-embedded" data-form="m1YmLR"></div>
-      <div class="price-success" id="price-success">🎉 You're in! Watch your inbox. early access is coming soon.</div>
-    </div>
-    <div class="price-guarantee-note">Instant digital access · No spam · Unsubscribe anytime</div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════
-  8. FAQ  (FAQs.JPG)
-══════════════════════════════════════ -->
-<section class="wrap faq reveal">
-  <h2>Common questions</h2>
-  <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Is this just another generic business ebook?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">Every framework in this playbook was built inside a real design agency in Kigali, tested before it was written down. The results in the playbook are real numbers, real months, real clients. This is documentation, not theory.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        I've bought things like this before. Why is this different?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">Most resources give you information. This gives you a system, with worksheets to build it and a 30-day plan to launch it. Every gear has a checklist and a fillable worksheet. You won't just read it; you'll build it.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Will this work in my niche or my market?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">If you sell a service: design, coaching, training, consulting, content creation,etc the Flywheel works. The four gears are universal. The worksheets are designed to be filled in with your specific audience, offer, and pricing.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Why is it only $7?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">The goal is to get this into as many hands as possible. The price is intentionally low. The system is not.</div>
+      <div class="pricing-card fade-up d1">
+        <div class="pricing-card-top">
+          <div class="pricing-card-label">The Complete Authority Flywheel Playbook</div>
+          <div class="price-display">
+            <span class="price-dollar">$</span>
+            <span class="price-main">7</span>
+            <span class="price-original">was $17</span>
+          </div>
+          <div class="price-note">// Launch Price · Instant digital delivery</div>
+        </div>
+        <div class="pricing-card-body">
+          <a href="https://www.kaazi.me/digital-product/eb53f2cd-5b98-49ef-a5fb-ecf37410815a" class="pricing-cta">Get Instant Access $7 →</a>
+          <div class="pricing-guarantee">🔒 Secure checkout · Instant PDF delivery · No subscriptions</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-  9. FINAL CTA + FOOTER  (footer.JPG)
-══════════════════════════════════════ -->
-<section class="wrap final-cta reveal">
-  <div class="final-glow"></div>
-  <h2>Your next client<br>shouldn't feel like <span class="lime">luck.</span></h2>
-  <p>27 free spots remaining. The playbook launches Monday, May 4th — $7 after that.</p>
-  <div class="final-btn-wrap">
-    <div class="ml-embedded" data-form="m1YmLR"></div>
-    <div class="final-note">Free for early access · $7 after launch · Instant digital access</div>
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="faq-header">
+      <div>
+        <span class="section-label">Questions</span>
+        <h2 class="faq-title fade-up">Everything<br>explained.</h2>
+      </div>
+      <p class="faq-sub fade-up">All you need to know about the playbook, who it's for, and what you get.</p>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q">Is this for beginners or experienced service providers?<span class="faq-chevron">⌄</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Both. If you're starting from scratch, the 30-Day Launch Plan gives you a clear day-by-day system. If you're established but stuck in a revenue plateau, the Engage, Convert, and Ascend gears will show you exactly what's missing.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What kind of service business is this for?<span class="faq-chevron">⌄</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Any service business where trust and authority matter: freelancers, consultants, coaches, agency owners, designers, marketers, copywriters. If you sell expertise, this system applies.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">I don't have time for a long course. How long does this take?<span class="faq-chevron">⌄</span></div>
+        <div class="faq-a"><div class="faq-a-inner">This is a playbook, not a course. Read end-to-end in 3–4 hours, or work one gear at a time. The AI content system turns 1 hour of thinking into 2 weeks of content, you'll likely save more time than you spend.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need any tools or software?<span class="faq-chevron">⌄</span></div>
+        <div class="faq-a"><div class="faq-a-inner">You need Claude or ChatGPT (free tier works), an email tool like Mailchimp, MailerLite or ConvertKit,and a scheduling tool like Buffer or Later. Most have free plans. Total cost to implement: potentially $0.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this based on real results or just theory?<span class="faq-chevron">⌄</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Real results. Kelly built this starting from zero! zero clients, zero MRR, zero following, and documented every step. The timeline on this page shows real numbers from real months. The system is in this book exactly as it was built.</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta-inner">
+      <h2 class="fade-up">Turn the page.<br>Start the engine.<br>Let it spin.</h2>
+      <p class="fade-up">The system that ended the hustle and started the momentum is waiting inside.</p>
+      <a href="https://www.kaazi.me/digital-product/eb53f2cd-5b98-49ef-a5fb-ecf37410815a" class="btn-primary fade-up" style="font-size:15px;padding:15px 32px;">Get the Playbook for $7 →</a>
+      <div class="final-cta-note fade-up">// Instant access · No subscriptions · Yours forever</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 Kelly Sandrine · Kigali, Rwanda · All rights reserved</p>
-  <p>This playbook is for personal use only. Do not reproduce or redistribute without written permission.</p>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">The <span>Authority</span> Flywheel™</div>
+      <div class="footer-meta">© 2025 Kelly Sandrine · All rights reserved</div>
+    </div>
+  </div>
 </footer>
 
 <script>
-/* Scroll reveal */
-const observer = new IntersectionObserver(entries => {
+// Scroll reveal
+const fadeEls = document.querySelectorAll('.fade-up');
+const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
   });
-}, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}, { threshold: 0.1 });
+fadeEls.forEach(el => io.observe(el));
 
-/* Countdown — May 4 2026 00:00 Kigali (CAT = UTC+2) */
-function tick() {
-  const diff = Math.max(0, new Date('2026-05-04T00:00:00+02:00') - new Date());
-  const pad = n => String(Math.floor(n)).padStart(2,'0');
-  document.getElementById('cd-days').textContent  = pad(diff/86400000);
-  document.getElementById('cd-hours').textContent = pad((diff%86400000)/3600000);
-  document.getElementById('cd-mins').textContent  = pad((diff%3600000)/60000);
-  document.getElementById('cd-secs').textContent  = pad((diff%60000)/1000);
-}
-tick(); setInterval(tick, 1000);
+// Hero items visible immediately
+setTimeout(() => {
+  document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+}, 80);
 
-/* FAQ */
-function toggleFaq(btn) {
-  const ans = btn.nextElementSibling, isOpen = btn.classList.contains('open');
-  document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
-  if (!isOpen) { btn.classList.add('open'); ans.classList.add('open'); }
-}
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
 
-/* Sign-up — wire to your email provider */
-function handleSignup(zone) {
-  const ids = { hero: ['hero-email','hero-email-row','hero-success'], price: ['price-email','price-form-row','price-success'] };
-  const [inputId, rowId, successId] = ids[zone];
-  const input = document.getElementById(inputId);
-  if (!input || !input.value.includes('@')) {
-    if (input) { input.style.outline='2px solid #e8453a'; setTimeout(()=>input.style.outline='',2000); }
-    return;
-  }
-  // 👉 Replace with your ConvertKit / Beehiiv API call:
-  // fetch('YOUR_FORM_URL', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email_address: input.value}) })
-  document.getElementById(rowId).style.display = 'none';
-  document.getElementById(successId).classList.add('show');
+// Book image fallback chain
+const bookImg = document.querySelector('.book-img');
+if (bookImg) {
+  bookImg.addEventListener('error', function handler() {
+    bookImg.removeEventListener('error', handler);
+    bookImg.src = 'AF_cover.png';
+    bookImg.addEventListener('error', function() {
+      bookImg.style.display = 'none';
+      const fb = document.getElementById('book-fallback');
+      if (fb) fb.style.display = 'flex';
+    });
+  });
 }
 </script>
 </body>
