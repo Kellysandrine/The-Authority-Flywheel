@@ -700,12 +700,16 @@ section { padding: clamp(80px,10vw,120px) 0; }
 .author-img-area {
   height: 300px;
   background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column;
-  gap: 12px;
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
+}
+  .author-img-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* keeps face/upper body visible */
+  display: block;
 }
 .author-img-area::before {
   content: '';
