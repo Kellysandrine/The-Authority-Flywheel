@@ -707,6 +707,9 @@ section { padding: clamp(80px,10vw,120px) 0; }
   position: relative;
   overflow: hidden;
 }
+.author pic{
+  object-fit: cover;
+}
 .author-img-area::before {
   content: '';
   position: absolute; inset: 0;
@@ -1372,7 +1375,7 @@ footer {
       <div class="author-visual fade-up">
         <div class="author-card">
           <div class="author-img-area">
-            <img src="ks.jpeg" alt="Kelly Sandrine">
+            <img src="ks.jpeg" alt="Kelly Sandrine" class="author pic">
           </div>
           <div class="author-card-footer">
             <div class="author-card-name">Kelly Sandrine</div>
