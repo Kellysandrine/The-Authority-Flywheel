@@ -1,0 +1,19 @@
+{
+  "name": "the-authority-flywheel",
+  "version": "1.0.0",
+  "description": "The Authority Flywheel Playbook landing page",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "lint": "echo 'No linting configured for static HTML'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.1.1"
+  },
+  "keywords": [
+    "landing-page",
+    "static"
+  ],
+  "author": "Kelly Sandrine"
+}
