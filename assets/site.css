@@ -79,6 +79,13 @@ figcaption{margin-top:.7rem;text-align:center;font-size:.9rem}
 .author-grid h2{max-width:20ch}
 .proof{border-left:2px solid var(--mint);margin-top:1.35rem;padding-left:1rem;display:grid;gap:.12rem}
 .proof span{color:var(--dim);font-size:.92rem}
+.reviews{background:#ecf1e8}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem}
+.review{display:flex;flex-direction:column;justify-content:space-between;gap:1.3rem;padding:clamp(1.1rem,2.5vw,1.8rem);background:#fafbf7;border:1px solid #c7d6c5;border-top:3px solid var(--green);border-radius:.65rem}
+.review blockquote{margin:0}
+.review-byline{display:grid;gap:.13rem}
+.review-byline span{font-size:.9rem;color:#456052}
+@media(max-width:760px){.reviews-grid{grid-template-columns:1fr}}
 .faq details{border-bottom:1px solid var(--line);padding:1rem 0}
 .faq details:first-child{padding-top:0}
 .faq summary{cursor:pointer;font-weight:720}
